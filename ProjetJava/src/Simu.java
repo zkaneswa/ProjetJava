@@ -1,4 +1,4 @@
-//TEST
+//TEST1
 public class Simu {
 	
 		public final static int X_MAX= 50;
