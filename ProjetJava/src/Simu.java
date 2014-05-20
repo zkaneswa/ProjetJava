@@ -33,16 +33,16 @@ public class Simu {
 	            
 	            //Tunnel
 		    	Tunnel[] t = new Tunnel[1];
-		    	t[0]=new Tunnel();
+		    	t[0]=new Tunnel();		    		    
 		    	t[0].drawTunnel(Tunnel.tunnelHaut);
 
+		    	//Affiche vaisseau
 	            draw(v, (int)(1000*delta));
 	    	}
 	    }
 	    
 	    
 	    public static void draw(Vaisseau[] v, int time){
-
         	v[0].draw(Vaisseau.PLAYER1);
         	v[1].draw(Vaisseau.PLAYER2);
 
