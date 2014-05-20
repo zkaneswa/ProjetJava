@@ -1,8 +1,9 @@
 import java.awt.Color;
 public class Tunnel {
 	
-	static int tunnelHaut[] = new int [Simu.X_MAX];
-	static int tunnelBas[]= new int [Simu.X_MAX];
+	static double tunnelHaut[] = new double [Simu.X_MAX];
+	static double tunnelBas[]= new double [Simu.X_MAX];
+	static double tab_X[]= new double [Simu.X_MAX];
 	
 	Tunnel(){
 		//Initialisation
@@ -12,23 +13,29 @@ public class Tunnel {
 		}
 	}
 	
-	public static int[] remplirTab(int[]tunnel){
+	public static double[] remplirTab(double[]tunnel){
 		for (int i=0;i<tunnel.length;i++){
-			if (i==0 || i==tunnel.length-1)
+			if(i==0|| i==tunnel.length-1){
 				tunnel[i]=90;
+			}
 			tunnel[i]=70+StdRandom.uniform(10);
 		}
 		return tunnel;
 	}
 	
-	public void drawTunnel(int tunnel[]){
-		remplirTab(tunnelHaut);
-		for (int i=0;i<Simu.X_MAX-1;i++){
-			int y = tunnelHaut[i];
-			int z = tunnelHaut[i+1];
-			StdDraw.setPenColor(Color.red);
-			StdDraw.line(i,y,i+1,z);
+	public static double[] tabX(){
+		for (int i=0; i<Simu.X_MAX; i++){
+			tab_X[i]=i;
 		}
+		return tab_X;
+	}
+	
+
+	public void drawTunnel(double tunnel[]){
+					
+		StdDraw.setPenColor(Color.blue);
+		StdDraw.filledPolygon(tabX(),remplirTab(tunnelHaut));
+		
 	}
 	
 }

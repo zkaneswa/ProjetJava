@@ -25,7 +25,7 @@ public class Vaisseau {
 		public void move (double ax, double ay, double delta, int xmax, int ymax, int player){
 			
 			px = px + ax*delta;
-			py = py + ay*delta;//Pour la gravité
+			py = py + ay*delta;//Pour la gravit≈Ω
 			
 			//Commandes du joueur 1
 			if (player==PLAYER1){
@@ -49,10 +49,10 @@ public class Vaisseau {
 		    		px += MOVE+0.5;
 			}
 		    
-			//Limites de la fenêtre
-	    	if(px<0) // à gauche
+			//Limites de la fenÔøΩtre
+	    	if(px<0) // ÀÜ gauche
 				px = 0;
-			else if(px > xmax)// à droite
+			else if(px > xmax)// ÀÜ droite
 				px = xmax;
 			
 			if(py<0) // en bas
