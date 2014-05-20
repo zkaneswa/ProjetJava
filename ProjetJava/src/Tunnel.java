@@ -18,10 +18,19 @@ public class Tunnel {
 	
 	public static double[] remplirTab(double[]tunnel){
 		for (int i=0;i<tunnel.length;i++){
-			if(i==0|| i==tunnel.length-1){
-				tunnel[i]=90;
+			if(tunnel==tunnelHaut){
+				if(i==0|| i==tunnel.length-1){
+					tunnel[i]=90;
+				}else{
+					tunnel[i]=70+StdRandom.uniform(10);
+				}
+			}else{
+				if(i==0|| i==tunnel.length-1){
+					tunnel[i]=10;
+				}else{
+					tunnel[i]=20+StdRandom.uniform(10);
+				}
 			}
-			tunnel[i]=70+StdRandom.uniform(10);
 		}
 		return tunnel;
 	}
@@ -36,8 +45,9 @@ public class Tunnel {
 	public void drawTunnel(double tunnel[]){
 					
 		StdDraw.setPenColor(Color.blue);
-		StdDraw.filledPolygon(tabX(),remplirTab(tunnelHaut));
+		StdDraw.filledPolygon(tabX(),remplirTab(tunnel));
 		
+
 	}
 	
 }
