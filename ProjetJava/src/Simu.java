@@ -1,19 +1,19 @@
 
 public class Simu {
 	
-		public final static int X_MAX= 50;
-	    public final static int Y_MAX= 50;
+		public final static int X_MAX= 100;
+	    public final static int Y_MAX= 100;
 	    public final static float WIDTH= 0.8f;
 
 	    public static void main (String [] args){
-	        
+	    	
 	    	boolean move = true;
 	  
 	    	// La grille
 	        StdDraw.setXscale(-WIDTH, X_MAX+WIDTH);
 	        StdDraw.setYscale(-WIDTH, Y_MAX+WIDTH);
 	  
-	    	// Les balles
+	    	// Les vaisseaux
 	    	Vaisseau[] v = new Vaisseau[2];
 	    	v[0] = new Vaisseau(X_MAX/2,Y_MAX/2,WIDTH,0.7,Vaisseau.PLAYER1);
 	    	v[1] = new Vaisseau(X_MAX/2,Y_MAX/6,WIDTH,0.7,Vaisseau.PLAYER1);
@@ -32,15 +32,22 @@ public class Simu {
 	         //   }
 	            draw(v, (int)(1000*delta));
 	    	}
+
 	    }
 	    
 	    
 	    public static void draw(Vaisseau[] v, int time){
-	        StdDraw.clear(StdDraw.BLACK);
+	        StdDraw.clear(StdDraw.WHITE);
 	        
 	        //for(int i= 0; i<v.length;i++){
 	        	v[0].draw(Vaisseau.PLAYER1);
 	        	v[1].draw(Vaisseau.PLAYER2);
+	        	
+		    	
+		    	//Tunnel
+		    	Tunnel[] t = new Tunnel[1];
+		    	t[0]=new Tunnel();
+		    	t[0].drawTunnel(Tunnel.tunnelHaut);
 	      //  }
 	        // display and pause
 	        StdDraw.show(time);	
