@@ -26,17 +26,19 @@ public class Simu {
 	    	double delta = 0.02;
 
 	    	while(move){
-            	v[0].move(ax,ay,delta,X_MAX, Y_MAX,Vaisseau.PLAYER1);
-            	v[1].move(ax,ay,delta,X_MAX, Y_MAX,Vaisseau.PLAYER2);
-
-	            StdDraw.clear(StdDraw.BLACK);
-	            
-	            //Tunnel
-		    	Tunnel[] t = new Tunnel[1];
-		    	t[0]=new Tunnel();		    		    
-		    	t[0].drawTunnel(Tunnel.tunnelHaut);
-
-		    	//Affiche vaisseau
+	           
+	            	v[0].move(ax,ay,delta,X_MAX, Y_MAX,Vaisseau.PLAYER1);
+	            	v[1].move(ax,ay,delta,X_MAX, Y_MAX,Vaisseau.PLAYER2);
+	        
+	            	
+	            	StdDraw.clear(StdDraw.WHITE);
+	            	
+	            	//Tunnel
+			    	Tunnel[] t = new Tunnel[1];
+			    	t[0]=new Tunnel();
+			    	t[0].drawTunnel(Tunnel.tunnelHaut);
+			    	t[0].drawTunnel(Tunnel.tunnelBas);
+			    	
 	            draw(v, (int)(1000*delta));
 	    	}
 	    }
