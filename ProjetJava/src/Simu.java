@@ -6,10 +6,10 @@ public class Simu {
 	    public final static float WIDTH= 0.8f;
 
 	    public static void main (String [] args){
-	        
+	    
 	    	boolean move = true;
-	  
-	    	// La grille
+	    	
+			// La grille
 	        StdDraw.setXscale(-WIDTH, X_MAX+WIDTH);
 	        StdDraw.setYscale(-WIDTH, Y_MAX+WIDTH);
 	  
@@ -32,6 +32,7 @@ public class Simu {
 	         //   }
 	            draw(v, (int)(1000*delta));
 	    	}
+	    	
 	    }
 	    
 	    

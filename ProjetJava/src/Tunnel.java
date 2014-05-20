@@ -1,8 +1,15 @@
-
 public class Tunnel {
-	private int[][] tab;
 	
-	Tunnel(){
-		tab = new int[20][20];
-	}
+	private int [] tab ;
+	
+	
+	
+	
+	
+	
+	
+	public static void main (String [] args) {
+
+		
+}
 }
