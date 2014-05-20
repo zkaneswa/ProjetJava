@@ -19,14 +19,6 @@ public class Tunnel {
 		return tunnel;
 	}
 	
-	public String toString(){
-		String s = "";
-		for (int i=0;i<tunnelHaut.length-1;i++){
-			s=s+tunnelHaut[i];
-		}
-		return s;
-	}
-	
 	public void drawTunnel(int tunnel[]){
 		remplirTab(tunnelHaut);
 		for (int i=0;i<Simu.X_MAX-1;i++){
@@ -35,12 +27,6 @@ public class Tunnel {
 			StdDraw.setPenColor(Color.blue);
 			StdDraw.line(i,y,i+1,z);
 		}
-	}
-	
-	public static void main (String [] args){
-		Tunnel t = new Tunnel();
-		t.toString();
-		System.out.print(remplirTab(tunnelHaut));
 	}
 	
 }
