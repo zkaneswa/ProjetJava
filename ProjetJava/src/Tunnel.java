@@ -14,7 +14,9 @@ public class Tunnel {
 	
 	public static int[] remplirTab(int[]tunnel){
 		for (int i=0;i<tunnel.length;i++){
-			tunnel[i]=StdRandom.uniform(10);
+			if (i==0 || i==tunnel.length-1)
+				tunnel[i]=90;
+			tunnel[i]=70+StdRandom.uniform(10);
 		}
 		return tunnel;
 	}
@@ -24,7 +26,7 @@ public class Tunnel {
 		for (int i=0;i<Simu.X_MAX-1;i++){
 			int y = tunnelHaut[i];
 			int z = tunnelHaut[i+1];
-			StdDraw.setPenColor(Color.blue);
+			StdDraw.setPenColor(Color.red);
 			StdDraw.line(i,y,i+1,z);
 		}
 	}

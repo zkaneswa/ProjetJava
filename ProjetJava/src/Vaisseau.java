@@ -64,8 +64,8 @@ public class Vaisseau {
 		//Affiche img vaisseaux
 		public void draw(int player){
 			if (player == PLAYER1)
-				StdDraw.picture(px,py,"vaisseau1.png",30,25);
+				StdDraw.picture(px,py,"vaisseau1.png",40,35);
 			else
-				StdDraw.picture(px,py,"vaisseau2.png",30,25);
+				StdDraw.picture(px,py,"vaisseau2.png",40,35);
 		}
 }
