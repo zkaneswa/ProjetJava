@@ -12,9 +12,6 @@ public class Vaisseau {
 		public final static int  MOVE=1;
 		public final static int PLAYER1=1;
 		public final static int PLAYER2=2;
-		//double score = this.px;
-		//
-		//String sScore=Integer.toString(PLAYER1);
 
 		//Constructeur
 		public Vaisseau(double x, double y, double r, double reb, int player){
@@ -22,12 +19,6 @@ public class Vaisseau {
 			py = y;
 			rayon = r;
 			rebond = reb;//Pour plus tard
-		}
-		
-		public static double getPx(){
-			double score;
-			score+=px;
-			return score;
 		}
 					
 		public void move (double ax, double ay, double delta, int xmax, int ymax, int player){	

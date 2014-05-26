@@ -5,6 +5,8 @@ public class Simu {
 		public final static int X_MAX= 100;
 	    public final static int Y_MAX= 100;
 	    public final static float WIDTH= 0.8f;
+	    static double scoreV1;
+	    static double scoreV2;
 
 	    public static void main (String [] args){
 	    	
@@ -13,7 +15,7 @@ public class Simu {
 	    	// La grille
 	        StdDraw.setXscale(-WIDTH, X_MAX+WIDTH);
 	        StdDraw.setYscale(-WIDTH, Y_MAX+WIDTH);
-	  
+
 	    	// Les vaisseaux
 	    	Vaisseau[] v = new Vaisseau[2];
 	    	v[0] = new Vaisseau(X_MAX/2,Y_MAX/2,WIDTH,0.7,Vaisseau.PLAYER1);
@@ -25,27 +27,30 @@ public class Simu {
 	    	
 	    	// intervalle de temps (en s)
 	    	double delta = 0.02;
-
+	  		    	
+	    	Tunnel t = new Tunnel();
+	    	
 	    	while(move){       
             	v[0].move(ax,ay,delta,X_MAX, Y_MAX,Vaisseau.PLAYER1);
             	v[1].move(ax,ay,delta,X_MAX, Y_MAX,Vaisseau.PLAYER2);
             	
             	StdDraw.clear(StdDraw.WHITE);
-            	
-            	//Tunnel
-		    	Tunnel[] t = new Tunnel[1];
-		    	t[0]=new Tunnel();
-		    	t[0].drawTunnel(Tunnel.tunnelHaut);
-		    	t[0].drawTunnel(Tunnel.tunnelBas);
 		    	
 			    //Score
-		    	String score;
-		    	score+=Vaisseau.px;
-		    	String t1 = String.valueOf(score);
+		    	scoreV1+=v[0].px;
+		    	scoreV2+=v[0].px;
+		    	String t1 = String.valueOf(scoreV1); //On cast double en string pour StdDraw.text
+		    	String t2 = String.valueOf(scoreV2);
 	            StdDraw.setPenColor(Color.black);
-	            StdDraw.text(90, 95, "Score");
-	            StdDraw.text(50, 50, t1);
+	            StdDraw.text(90, 95, "Joueur 1 : "+t1);
+	            StdDraw.text(90, 90,"Joueur 2 : "+t2);
 	            
+	            //Tunnel
+            	t.tunnel();
+            	t.afficheTunnel();
+            	t.decale();  
+            	t.tunnel();	
+			    	
 	            draw(v, (int)(1000*delta));
 	    	}
 	    }  
@@ -53,6 +58,8 @@ public class Simu {
 	    public static void draw(Vaisseau[] v, int time){
         	v[0].draw(Vaisseau.PLAYER1);
         	v[1].draw(Vaisseau.PLAYER2);
+	        	
+	        	
 
 	        // display and pause
 	        StdDraw.show(time);	
