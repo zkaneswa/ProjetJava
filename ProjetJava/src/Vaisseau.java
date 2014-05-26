@@ -12,6 +12,9 @@ public class Vaisseau {
 		public final static int  MOVE=1;
 		public final static int PLAYER1=1;
 		public final static int PLAYER2=2;
+		//double score = this.px;
+		//
+		//String sScore=Integer.toString(PLAYER1);
 
 		//Constructeur
 		public Vaisseau(double x, double y, double r, double reb, int player){
@@ -20,12 +23,16 @@ public class Vaisseau {
 			rayon = r;
 			rebond = reb;//Pour plus tard
 		}
-
+		
+		public static double getPx(){
+			double score;
+			score+=px;
+			return score;
+		}
 					
-		public void move (double ax, double ay, double delta, int xmax, int ymax, int player){
-			
+		public void move (double ax, double ay, double delta, int xmax, int ymax, int player){	
 			px = px + ax*delta;
-			py = py + ay*delta;//Pour la gravitŽ
+			py = py + ay*delta;//Pour la gravite
 			
 			//Commandes du joueur 1
 			if (player==PLAYER1){
@@ -49,10 +56,10 @@ public class Vaisseau {
 		    		px += MOVE+0.5;
 			}
 		    
-			//Limites de la fen�tre
-	    	if(px<0) // ˆ gauche
+			//Limites de la fenetre
+	    	if(px<0) // a gauche
 				px = 0;
-			else if(px > xmax)// ˆ droite
+			else if(px > xmax)// a droite
 				px = xmax;
 			
 			if(py<0) // en bas
@@ -61,7 +68,7 @@ public class Vaisseau {
 				py = ymax;
 		}    
 		
-		//Affiche img vaisseaux
+		//Affiche images vaisseaux
 		public void draw(int player){
 			if (player == PLAYER1)
 				StdDraw.picture(px,py,"vaisseau1.png",40,35);

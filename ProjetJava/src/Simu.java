@@ -1,3 +1,4 @@
+import java.awt.Color;
 
 public class Simu {
 	
@@ -25,24 +26,29 @@ public class Simu {
 	    	// intervalle de temps (en s)
 	    	double delta = 0.02;
 
-	    	while(move){
-	           
-	            	v[0].move(ax,ay,delta,X_MAX, Y_MAX,Vaisseau.PLAYER1);
-	            	v[1].move(ax,ay,delta,X_MAX, Y_MAX,Vaisseau.PLAYER2);
-	        
-	            	
-	            	StdDraw.clear(StdDraw.WHITE);
-	            	
-	            	//Tunnel
-			    	Tunnel[] t = new Tunnel[1];
-			    	t[0]=new Tunnel();
-			    	t[0].drawTunnel(Tunnel.tunnelHaut);
-			    	t[0].drawTunnel(Tunnel.tunnelBas);
-			    	
+	    	while(move){       
+            	v[0].move(ax,ay,delta,X_MAX, Y_MAX,Vaisseau.PLAYER1);
+            	v[1].move(ax,ay,delta,X_MAX, Y_MAX,Vaisseau.PLAYER2);
+            	
+            	StdDraw.clear(StdDraw.WHITE);
+            	
+            	//Tunnel
+		    	Tunnel[] t = new Tunnel[1];
+		    	t[0]=new Tunnel();
+		    	t[0].drawTunnel(Tunnel.tunnelHaut);
+		    	t[0].drawTunnel(Tunnel.tunnelBas);
+		    	
+			    //Score
+		    	String score;
+		    	score+=Vaisseau.px;
+		    	String t1 = String.valueOf(score);
+	            StdDraw.setPenColor(Color.black);
+	            StdDraw.text(90, 95, "Score");
+	            StdDraw.text(50, 50, t1);
+	            
 	            draw(v, (int)(1000*delta));
 	    	}
-	    }
-	    
+	    }  
 	    
 	    public static void draw(Vaisseau[] v, int time){
         	v[0].draw(Vaisseau.PLAYER1);
@@ -50,6 +56,5 @@ public class Simu {
 
 	        // display and pause
 	        StdDraw.show(time);	
-	    }
-	    	
+	    }   	
 }
