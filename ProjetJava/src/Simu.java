@@ -12,7 +12,9 @@ public class Simu {
 			// La grille
 	        StdDraw.setXscale(-WIDTH, X_MAX+WIDTH);
 	        StdDraw.setYscale(-WIDTH, Y_MAX+WIDTH);
-	  
+	    
+		    	
+
 	    	// Les vaisseaux
 	    	Vaisseau[] v = new Vaisseau[2];
 	    	v[0] = new Vaisseau(X_MAX/2,Y_MAX/2,WIDTH,0.7,Vaisseau.PLAYER1);
@@ -24,20 +26,24 @@ public class Simu {
 	    	
 	    	// intervalle de temps (en s)
 	    	double delta = 0.02;
-
+	  		    	
+	    	Tunnel t = new Tunnel();
+	    	//t.iniTunnel();
+	    	
 	    	while(move){
 	           
 	            	v[0].move(ax,ay,delta,X_MAX, Y_MAX,Vaisseau.PLAYER1);
 	            	v[1].move(ax,ay,delta,X_MAX, Y_MAX,Vaisseau.PLAYER2);
 	        
 	            	
-	            	StdDraw.clear(StdDraw.WHITE);
 	            	
-	            	//Tunnel
-			    	Tunnel[] t = new Tunnel[1];
-			    	t[0]=new Tunnel();
-			    	t[0].drawTunnel(Tunnel.tunnelHaut);
-			    	t[0].drawTunnel(Tunnel.tunnelBas);
+	            	StdDraw.clear(StdDraw.WHITE);
+			    	
+	            	t.tunnel();
+	            	t.afficheTunnel();
+	            	t.decale();  
+	            	t.tunnel();
+		    	
 			    	
 	            draw(v, (int)(1000*delta));
 	    	}
@@ -49,6 +55,8 @@ public class Simu {
 	              
 	            v[0].draw(Vaisseau.PLAYER1);
 	        	v[1].draw(Vaisseau.PLAYER2);
+	        	
+	        	
 
 	        	// display and pause
 	        StdDraw.show(time);	

@@ -1,53 +1,84 @@
 
-import java.awt.Color;
+
 
 public class Tunnel {
 	
-	static double tunnelHaut[] = new double [Simu.X_MAX];
+	static double tunnelHaut[]= new double [Simu.X_MAX];
 	static double tunnelBas[]= new double [Simu.X_MAX];
-	static double tab_X[]= new double [Simu.X_MAX];
 	
 	
 	Tunnel(){
 		//Initialisation
-		for (int i=0;i<Simu.X_MAX;i++){
-			tunnelHaut[i]=70;
-			tunnelBas[i]=30;
-		}
-	}
-	
-	public static double[] remplirTab(double[]tunnel){
-		for (int i=0;i<tunnel.length;i++){
-			if(tunnel==tunnelHaut){
-				if(i==0|| i==tunnel.length-1){
-					tunnel[i]=90;
-				}else{
-					tunnel[i]=70+StdRandom.uniform(10);
-				}
-			}else{
-				if(i==0|| i==tunnel.length-1){
-					tunnel[i]=10;
-				}else{
-					tunnel[i]=20+StdRandom.uniform(10);
-				}
-			}
-		}
-		return tunnel;
-	}
-	
-	public static double[] tabX(){
-		for (int i=0; i<Simu.X_MAX; i++){
-			tab_X[i]=i;
-		}
-		return tab_X;
-	}
-	
-	public void drawTunnel(double tunnel[]){
-					
-		StdDraw.setPenColor(Color.blue);
-		StdDraw.filledPolygon(tabX(),remplirTab(tunnel));
 		
+		for (int i = 0; i < Simu.X_MAX; i++) {
+			tunnelHaut[i] = 60;
+			tunnelBas[i] = 30;
+		}
+	}
 
+	
+	
+
+	public void tunnel() {
+
+		do {
+		tunnelHaut[ Simu.X_MAX - 1] = tunnelHaut[ Simu.X_MAX - 2] +Math.random()*10-5;
+		tunnelBas[ Simu.X_MAX - 1] = tunnelBas[Simu.X_MAX - 2] +  Math.random()*10-5;
+
+			if (tunnelHaut[ Simu.X_MAX - 1] > Simu.Y_MAX - 16) // pour que le decorhaut reste dans la fenetre
+				{
+					tunnelHaut[ Simu.X_MAX - 1] = Simu.Y_MAX - 16;
+				}
+
+			if (tunnelBas[ Simu.X_MAX - 1] < 0) // pour que le decorbas reste dans la fenetre
+				{
+					tunnelBas[ Simu.X_MAX - 1] = 0;
+				}
+			
+			
+			} 
+		
+		while ( tunnelHaut[ Simu.X_MAX - 1] - tunnelBas[ Simu.X_MAX - 1] <20);
+		
+	}
+
+
+
+public void afficheTunnel() {
+	
+	double[] x = new double[ Simu.X_MAX + 2]; // remplissage du decors
+	double[] tunnelHautPolygon = new double[ Simu.X_MAX + 2];
+	double[] tunnelBasPolygon = new double[ Simu.X_MAX + 2];
+	
+	for (int j = 0; j < Simu.X_MAX + 2; j++) {
+		if (j == 0) {
+			x[j] = 0;
+			tunnelHautPolygon[j] = Simu.Y_MAX - 15;
+			tunnelBasPolygon[j] = 0;
+		} else if (j ==Simu.X_MAX + 1) {
+			x[j] = Simu.X_MAX;
+			tunnelHautPolygon[j] = Simu.Y_MAX - 15;
+			tunnelBasPolygon[j] = 0;
+		} else {
+			x[j] = j - 1;
+			tunnelHautPolygon[j] = tunnelHaut[j - 1];
+			tunnelBasPolygon[j] = tunnelBas[j - 1];
+		}
 	}
 	
+	StdDraw.setPenColor(StdDraw.RED);
+	StdDraw.filledPolygon(x, tunnelHautPolygon);
+	StdDraw.filledPolygon(x, tunnelBasPolygon);
+	}
+
+
+public void decale() {
+	for (int i = 0; i < Simu.X_MAX - 1; i++) {
+		tunnelHaut[i] = tunnelHaut[i + 1];
+		tunnelBas[i] = tunnelBas[i + 1];
+	}
+
+}
+
+
 }

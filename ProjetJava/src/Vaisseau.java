@@ -49,7 +49,7 @@ public class Vaisseau {
 		    		px += MOVE+0.5;
 			}
 		    
-			//Limites de la fen�tre
+			//Limites de la fenetre
 	    	if(px<0) // ˆ gauche
 				px = 0;
 			else if(px > xmax)// ˆ droite
@@ -59,6 +59,9 @@ public class Vaisseau {
 				py = 0;						
 			else if(py>ymax) // en haut
 				py = ymax;
+			
+			
+			
 		}    
 		
 		//Affiche img vaisseaux
