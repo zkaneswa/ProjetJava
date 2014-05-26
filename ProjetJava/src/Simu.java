@@ -5,8 +5,6 @@ public class Simu {
 		public final static int X_MAX= 100;
 	    public final static int Y_MAX= 100;
 	    public final static float WIDTH= 0.8f;
-	    static double scoreV1;
-	    static double scoreV2;
 
 	    public static void main (String [] args){
 	    	
@@ -37,10 +35,10 @@ public class Simu {
             	StdDraw.clear(StdDraw.WHITE);
 		    	
 			    //Score
-		    	scoreV1+=v[0].px;
-		    	scoreV2+=v[0].px;
-		    	String t1 = String.valueOf(scoreV1); //On cast double en string pour StdDraw.text
-		    	String t2 = String.valueOf(scoreV2);
+		    	Vaisseau.scoreV1+=v[0].px;
+		    	Vaisseau.scoreV2+=v[1].px;
+		    	String t1 = String.valueOf(Vaisseau.scoreV1); //On cast double en string pour StdDraw.text
+		    	String t2 = String.valueOf(Vaisseau.scoreV2);
 	            StdDraw.setPenColor(Color.black);
 	            StdDraw.text(90, 95, "Joueur 1 : "+t1);
 	            StdDraw.text(90, 90,"Joueur 2 : "+t2);
@@ -58,9 +56,7 @@ public class Simu {
 	    public static void draw(Vaisseau[] v, int time){
         	v[0].draw(Vaisseau.PLAYER1);
         	v[1].draw(Vaisseau.PLAYER2);
-	        	
-	        	
-
+        	
 	        // display and pause
 	        StdDraw.show(time);	
 	    }   	

@@ -9,6 +9,8 @@ public class Vaisseau {
 		double vy;
 		double rayon;
 		double rebond;
+	    static double scoreV1;
+	    static double scoreV2;
 		public final static int  MOVE=1;
 		public final static int PLAYER1=1;
 		public final static int PLAYER2=2;
