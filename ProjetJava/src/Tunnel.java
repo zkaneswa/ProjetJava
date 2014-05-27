@@ -3,6 +3,8 @@ public class Tunnel {
 	
 	static double tunnelHaut[] = new double [Simu.X_MAX];
 	static double tunnelBas[]= new double [Simu.X_MAX];
+	static double[] tunnelHautPolygon = new double[ Simu.X_MAX + 2];
+	static double[] tunnelBasPolygon = new double[ Simu.X_MAX + 2];
 	
 	Tunnel(){
 		//Initialisation	
@@ -14,8 +16,8 @@ public class Tunnel {
 	
 	public void tunnel() {
 		do {
-			tunnelHaut[ Simu.X_MAX - 1] = tunnelHaut[ Simu.X_MAX - 2] +Math.random()*10-5;
-			tunnelBas[ Simu.X_MAX - 1] = tunnelBas[Simu.X_MAX - 2] +  Math.random()*10-5;
+			tunnelHaut[ Simu.X_MAX - 1] = tunnelHaut[ Simu.X_MAX - 2] + Math.random()*10-5;
+			tunnelBas[ Simu.X_MAX - 1] = tunnelBas[Simu.X_MAX - 2] + Math.random()*10-5;
 	
 			if (tunnelHaut[ Simu.X_MAX - 1] > Simu.Y_MAX - 16) // pour que le decorhaut reste dans la fenetre
 				tunnelHaut[ Simu.X_MAX - 1] = Simu.Y_MAX - 16;
@@ -28,8 +30,6 @@ public class Tunnel {
 	public void afficheTunnel() {
 		
 		double[] x = new double[ Simu.X_MAX + 2]; // remplissage du decors
-		double[] tunnelHautPolygon = new double[ Simu.X_MAX + 2];
-		double[] tunnelBasPolygon = new double[ Simu.X_MAX + 2];
 		
 		for (int j = 0; j < Simu.X_MAX + 2; j++) {
 			if (j == 0) {
