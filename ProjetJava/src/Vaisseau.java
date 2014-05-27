@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 public class Vaisseau {
@@ -69,9 +70,11 @@ public class Vaisseau {
 		
 		//Affiche images vaisseaux
 		public void draw(int player){
-			if (player == PLAYER1)
+			if (player == PLAYER1){
 				StdDraw.picture(px,py,"vaisseau1.png",40,35);
-			else
+				StdDraw.setPenColor(Color.black);
+				StdDraw.filledCircle(px-1.5, py+1.7, rayon);
+			}else
 				StdDraw.picture(px,py,"vaisseau2.png",40,35);
 		}
 		
