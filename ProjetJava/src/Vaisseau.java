@@ -9,6 +9,8 @@ public class Vaisseau {
 		double vy;
 		double rayon;
 		double rebond;
+	    static double scoreV1;
+	    static double scoreV2;
 		public final static int  MOVE=1;
 		public final static int PLAYER1=1;
 		public final static int PLAYER2=2;
@@ -20,10 +22,8 @@ public class Vaisseau {
 			rayon = r;
 			rebond = reb;//Pour plus tard
 		}
-
 					
-		public void move (double ax, double ay, double delta, int xmax, int ymax, int player){
-			
+		public void move (double ax, double ay, double delta, int xmax, int ymax, int player){	
 			px = px + ax*delta;
 			py = py + ay*delta;//Pour la gravite
 			
@@ -50,9 +50,9 @@ public class Vaisseau {
 			}
 		    
 			//Limites de la fenetre
-	    	if(px<0) // ˆ gauche
+	    	if(px<0) // a gauche
 				px = 0;
-			else if(px > xmax)// ˆ droite
+			else if(px > xmax)// a droite
 				px = xmax;
 			
 			if(py<0) // en bas
@@ -64,15 +64,15 @@ public class Vaisseau {
 			
 			
 		}   
+
+
 		
-		
-		
-		
-		//Affiche img vaisseaux
+		//Affiche images vaisseaux
 		public void draw(int player){
 			if (player == PLAYER1)
-				StdDraw.picture(px,py,"vaisseau1.png",30,25);
+				StdDraw.picture(px,py,"vaisseau1.png",40,35);
 			else
-				StdDraw.picture(px,py,"vaisseau2.png",30,25);
+				StdDraw.picture(px,py,"vaisseau2.png",40,35);
 		}
+		
 }

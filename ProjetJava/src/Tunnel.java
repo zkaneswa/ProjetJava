@@ -1,67 +1,59 @@
+
 public class Tunnel {
 	
+
 
 	static double tunnelHaut[]= new double [Simu.X_MAX];
 	static double tunnelBas[]= new double [Simu.X_MAX];
 	
+
 	
 	Tunnel(){
-		//Initialisation
-		
+		//Initialisation	
 		for (int i = 0; i < Simu.X_MAX; i++) {
 			tunnelHaut[i] = 60;
 			tunnelBas[i] = 30;
 		}
 	}
-
 	
 
-
 	public void tunnel() {
-
 		do {
-		tunnelHaut[ Simu.X_MAX - 1] = tunnelHaut[ Simu.X_MAX - 2] +Math.random()*10-5;
-		tunnelBas[ Simu.X_MAX - 1] = tunnelBas[Simu.X_MAX - 2] +  Math.random()*10-5;
-
+			tunnelHaut[ Simu.X_MAX - 1] = tunnelHaut[ Simu.X_MAX - 2] +Math.random()*10-5;
+			tunnelBas[ Simu.X_MAX - 1] = tunnelBas[Simu.X_MAX - 2] +  Math.random()*10-5;
+	
 			if (tunnelHaut[ Simu.X_MAX - 1] > Simu.Y_MAX - 16) // pour que le decorhaut reste dans la fenetre
-				{
-					tunnelHaut[ Simu.X_MAX - 1] = Simu.Y_MAX - 16;
-				}
-
+				tunnelHaut[ Simu.X_MAX - 1] = Simu.Y_MAX - 16;
 			if (tunnelBas[ Simu.X_MAX - 1] < 0) // pour que le decorbas reste dans la fenetre
-				{
-					tunnelBas[ Simu.X_MAX - 1] = 0;
-				}
-			
-			
-			} 
-		
-		while ( tunnelHaut[ Simu.X_MAX - 1] - tunnelBas[ Simu.X_MAX - 1] <20);
-		
+				tunnelBas[ Simu.X_MAX - 1] = 0;
+		} 
+		while ( tunnelHaut[ Simu.X_MAX - 1] - tunnelBas[ Simu.X_MAX - 1] <20);	
 	}
 
 
  
-public void afficheTunnel() {
-	
-	double[] x = new double[ Simu.X_MAX + 2]; // remplissage du decors
-	double[] tunnelHautPolygon = new double[ Simu.X_MAX + 2];
-	double[] tunnelBasPolygon = new double[ Simu.X_MAX + 2];
-	
-	for (int j = 0; j < Simu.X_MAX + 2; j++) {
-		if (j == 0) {
-			x[j] = 0;
-			tunnelHautPolygon[j] = Simu.Y_MAX - 15;
-			tunnelBasPolygon[j] = 0;
-		} else if (j ==Simu.X_MAX + 1) {
-			x[j] = Simu.X_MAX;
-			tunnelHautPolygon[j] = Simu.Y_MAX - 15;
-			tunnelBasPolygon[j] = 0;
-		} else {
-			x[j] = j - 1;
-			tunnelHautPolygon[j] = tunnelHaut[j - 1];
-			tunnelBasPolygon[j] = tunnelBas[j - 1];
-		}
+
+	public void afficheTunnel() {
+		
+		double[] x = new double[ Simu.X_MAX + 2]; // remplissage du decors
+		double[] tunnelHautPolygon = new double[ Simu.X_MAX + 2];
+		double[] tunnelBasPolygon = new double[ Simu.X_MAX + 2];
+		
+		for (int j = 0; j < Simu.X_MAX + 2; j++) {
+			if (j == 0) {
+				x[j] = 0;
+				tunnelHautPolygon[j] = Simu.Y_MAX - 15;
+				tunnelBasPolygon[j] = 0;
+			} else if (j ==Simu.X_MAX + 1) {
+				x[j] = Simu.X_MAX;
+				tunnelHautPolygon[j] = Simu.Y_MAX - 15;
+				tunnelBasPolygon[j] = 0;
+			} else {
+				x[j] = j - 1;
+				tunnelHautPolygon[j] = tunnelHaut[j - 1];
+				tunnelBasPolygon[j] = tunnelBas[j - 1];
+			}
+
 	
 	}
 	
@@ -71,17 +63,19 @@ public void afficheTunnel() {
 	
 	
 
-}
-public void decale() {
-	for (int i = 0; i < Simu.X_MAX -1; i++) {
-		tunnelHaut[i] = tunnelHaut[i + 1];
-		tunnelBas[i] = tunnelBas[i + 1];
+	}
+
+
+
+
+
+	public void decale() {
+		for (int i = 0; i < Simu.X_MAX - 1; i++) {
+			tunnelHaut[i] = tunnelHaut[i + 1];
+			tunnelBas[i] = tunnelBas[i + 1];
+		}
 	}
 
 }
-
-
-}
-
 
 
