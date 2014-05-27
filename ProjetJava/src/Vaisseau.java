@@ -19,7 +19,7 @@ public class Vaisseau {
 		public Vaisseau(double x, double y, double r, double reb, int player){
 			px = x;
 			py = y;
-			rayon = r;
+			//rayon = r;
 			rebond = reb;//Pour plus tard
 		}
 					

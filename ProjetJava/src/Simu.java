@@ -57,12 +57,13 @@ public class Simu {
 	            
 	            
 	            //Collision
-	            for(int i=0; i<tunne)
-	            if(v[0].py>=Tunnel.tunnelHaut[i]){
+	            
+	            if(v[0].py>=Tunnel.tunnelHautPolygon[(int)v[0].px]){
 	            	
-	            	v[0].py=Tunnel.tunnelHaut[i];
+	            	v[0].py=Tunnel.tunnelHautPolygon[(int)v[0].px];
 	            	
 	            }
+	    	
 	    	}
 	    }  
 	    

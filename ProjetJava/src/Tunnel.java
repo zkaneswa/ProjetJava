@@ -2,7 +2,8 @@
 public class Tunnel {
 	
 
-
+	static double[] tunnelHautPolygon = new double[ Simu.X_MAX + 2];
+	static double[] tunnelBasPolygon = new double[ Simu.X_MAX + 2];
 	static double tunnelHaut[]= new double [Simu.X_MAX];
 	static double tunnelBas[]= new double [Simu.X_MAX];
 	
@@ -36,8 +37,7 @@ public class Tunnel {
 	public void afficheTunnel() {
 		
 		double[] x = new double[ Simu.X_MAX + 2]; // remplissage du decors
-		double[] tunnelHautPolygon = new double[ Simu.X_MAX + 2];
-		double[] tunnelBasPolygon = new double[ Simu.X_MAX + 2];
+		
 		
 		for (int j = 0; j < Simu.X_MAX + 2; j++) {
 			if (j == 0) {
