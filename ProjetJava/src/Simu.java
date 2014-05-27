@@ -77,13 +77,7 @@ public class Simu {
 	            draw(v, (int)(1000*delta));
 	            
 	            
-	            //Collision
-	            
-	            if(v[0].py>=Tunnel.tunnelHautPolygon[(int)v[0].px]){
-	            	
-	            	v[0].py=Tunnel.tunnelHautPolygon[(int)v[0].px];
-	            	
-	            }
+	          
 	    	
 	    	}
 	    }  

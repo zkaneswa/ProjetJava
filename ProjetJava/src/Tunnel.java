@@ -31,7 +31,6 @@ public class Tunnel {
 		while ( tunnelHaut[ Simu.X_MAX - 1] - tunnelBas[ Simu.X_MAX - 1] <20);	
 	}
 
-
  
 
 	public void afficheTunnel() {
