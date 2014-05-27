@@ -80,5 +80,5 @@ public class Simu {
         	
 	        // display and pause
 	        StdDraw.show(time);	
-	    }   	
+	    }  	
 }

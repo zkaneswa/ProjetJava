@@ -66,8 +66,8 @@ public class Vaisseau {
 		public void draw(int player){
 			if (player == PLAYER1){
 				StdDraw.picture(px,py,"vaisseau1.png",40,35);
-				StdDraw.setPenColor(Color.black);
-				StdDraw.filledCircle(px-1.5, py+1.7, rayon);
+				//StdDraw.setPenColor(Color.black);
+				//StdDraw.filledCircle(px-1.5, py+1.7, rayon);
 			}else
 				StdDraw.picture(px,py,"vaisseau2.png",40,35);
 		}
