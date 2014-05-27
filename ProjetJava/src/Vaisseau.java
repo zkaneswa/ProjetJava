@@ -56,10 +56,8 @@ public class Vaisseau {
 			else if(px > xmax)// a droite
 				px = xmax;
 			
-			if(py<0) // en bas
-				py = 0;						
-			else if(py>ymax) // en haut
-				py = ymax;
+							
+			
 			
 			
 			
@@ -71,7 +69,7 @@ public class Vaisseau {
 		//Affiche images vaisseaux
 		public void draw(int player){
 			if (player == PLAYER1){
-				StdDraw.picture(px,py,"vaisseau1.png",40,35);
+			//	StdDraw.picture(px,py,"vaisseau1.png",40,35);
 				StdDraw.setPenColor(Color.black);
 				StdDraw.filledCircle(px-1.5, py+1.7, rayon);
 			}else
