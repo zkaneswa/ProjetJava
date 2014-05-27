@@ -25,7 +25,7 @@ public class Vaisseau {
 		public void move (double ax, double ay, double delta, int xmax, int ymax, int player){
 			
 			px = px + ax*delta;
-			py = py + ay*delta;//Pour la gravitŽ
+			py = py + ay*delta;//Pour la gravite
 			
 			//Commandes du joueur 1
 			if (player==PLAYER1){
@@ -62,7 +62,11 @@ public class Vaisseau {
 			
 			
 			
-		}    
+			
+		}   
+		
+		
+		
 		
 		//Affiche img vaisseaux
 		public void draw(int player){

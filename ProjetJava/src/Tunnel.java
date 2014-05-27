@@ -1,8 +1,6 @@
-
-
-
 public class Tunnel {
 	
+
 	static double tunnelHaut[]= new double [Simu.X_MAX];
 	static double tunnelBas[]= new double [Simu.X_MAX];
 	
@@ -17,7 +15,7 @@ public class Tunnel {
 	}
 
 	
-	
+
 
 	public void tunnel() {
 
@@ -43,7 +41,7 @@ public class Tunnel {
 	}
 
 
-
+ 
 public void afficheTunnel() {
 	
 	double[] x = new double[ Simu.X_MAX + 2]; // remplissage du decors
@@ -64,16 +62,18 @@ public void afficheTunnel() {
 			tunnelHautPolygon[j] = tunnelHaut[j - 1];
 			tunnelBasPolygon[j] = tunnelBas[j - 1];
 		}
+	
 	}
 	
 	StdDraw.setPenColor(StdDraw.RED);
 	StdDraw.filledPolygon(x, tunnelHautPolygon);
 	StdDraw.filledPolygon(x, tunnelBasPolygon);
-	}
+	
+	
 
-
+}
 public void decale() {
-	for (int i = 0; i < Simu.X_MAX - 1; i++) {
+	for (int i = 0; i < Simu.X_MAX -1; i++) {
 		tunnelHaut[i] = tunnelHaut[i + 1];
 		tunnelBas[i] = tunnelBas[i + 1];
 	}
@@ -82,3 +82,6 @@ public void decale() {
 
 
 }
+
+
+

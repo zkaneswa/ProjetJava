@@ -34,7 +34,8 @@ public class Simu {
 	           
 	            	v[0].move(ax,ay,delta,X_MAX, Y_MAX,Vaisseau.PLAYER1);
 	            	v[1].move(ax,ay,delta,X_MAX, Y_MAX,Vaisseau.PLAYER2);
-	        
+	            	
+	            	
 	            	
 	            	
 	            	StdDraw.clear(StdDraw.WHITE);
@@ -42,10 +43,11 @@ public class Simu {
 	            	t.tunnel();
 	            	t.afficheTunnel();
 	            	t.decale();  
-	            	t.tunnel();
+	            	
 		    	
 			    	
 	            draw(v, (int)(1000*delta));
+	            
 	    	}
 
 	    }
@@ -56,10 +58,11 @@ public class Simu {
 	            v[0].draw(Vaisseau.PLAYER1);
 	        	v[1].draw(Vaisseau.PLAYER2);
 	        	
-	        	
-
-	        	// display and pause
+	        		        	// display and pause
 	        StdDraw.show(time);	
 	    }
+	    
+	    
+	  
 	    	
 }
