@@ -6,10 +6,10 @@ public class Vaisseau {
 		//Attributs de Vaisseau
 		double px;
 		double py;
-		double vx;
-		double vy;
 		double rayon;
 		double rebond;
+		int energie=10;
+		boolean collision = false;
 		public final static int  MOVE=1;
 		public final static int PLAYER1=1;
 		public final static int PLAYER2=2;
@@ -77,22 +77,22 @@ public class Vaisseau {
 			return collision;
 		}*/
 		
-		public void collisionHautTunnel(){
+		public boolean collisionTunnel(){
         	if (py+rayon>=Tunnel.tunnelHautPolygon[(int)px]){ //Contre tunnel haut
         		py=Tunnel.tunnelHautPolygon[(int)px]-rayon;
+        		collision=true;
         	}
+        	if (py-rayon<=Tunnel.tunnelBasPolygon[(int)px]){ //Contre tunnel bas
+        		py=Tunnel.tunnelBasPolygon[(int)px]+rayon;
+        		collision = true;
+        	}
+        	return collision;
       	}
 		
-		public void collisionBasTunnel(){
-			if (py-rayon<=Tunnel.tunnelBasPolygon[(int)px]){ //Contre tunnel bas
-        		py=Tunnel.tunnelBasPolygon[(int)px]+rayon;
-        	}
-		}
-		
-		public void collisionVaisseau(){
+		/*public void collisionVaisseau(){
 			double dist = Math.pow((this.px-px), 2) + Math.pow((this.py-py), 2);
 			if(dist<=rayon*rayon){
 				
 			}
-		}
+		}*/
 }

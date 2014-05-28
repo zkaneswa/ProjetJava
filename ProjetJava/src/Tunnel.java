@@ -62,10 +62,6 @@ public class Tunnel {
 
 	}
 
-
-
-
-
 	public void decale() {
 		for (int i = 0; i < Simu.X_MAX - 1; i++) {
 			tunnelHaut[i] = tunnelHaut[i + 1];

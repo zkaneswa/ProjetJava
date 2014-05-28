@@ -31,20 +31,14 @@ public class Simu {
 	  		    	
 	    	Tunnel t = new Tunnel();
 
-	    	while(move){       
+	    	while(move){
+            	for(int i=0;i<=1;i++)
+	            	v[i].collision=false;
+            	
             	v[0].move(ax,ay,delta,X_MAX, Y_MAX,Vaisseau.PLAYER1);
             	v[1].move(ax,ay,delta,X_MAX, Y_MAX,Vaisseau.PLAYER2);
             	
             	StdDraw.clear(StdDraw.WHITE);
-		    	
-			    //Score
-		    	scoreV1+=v[0].px;
-		    	scoreV2+=v[1].px;
-		    	String t1 = String.valueOf(scoreV1); //On cast double en string pour StdDraw.text
-		    	String t2 = String.valueOf(scoreV2);
-	            StdDraw.setPenColor(Color.black);
-	            StdDraw.text(90, 95, "Joueur 1 : "+t1);
-	            StdDraw.text(90, 90,"Joueur 2 : "+t2);
 	            
 	            //Tunnel
             	t.tunnel();
@@ -52,14 +46,11 @@ public class Simu {
             	t.decale();
             	
             	//Collisions avec tunnel
-            	v[0].collisionHautTunnel();
-            	v[1].collisionHautTunnel();
-            	v[0].collisionBasTunnel();
-            	v[1].collisionBasTunnel();
-            	v[0].collisionVaisseau();
+            	v[0].collisionTunnel();
+            	v[1].collisionTunnel();
             	
+            	//Collision entre vaisseaux
             	double dist= (v[1].px-v[0].px)* (v[1].px-v[0].px)+  (v[1].py-v[0].py)*(v[1].py-v[0].py);
-
             	if(dist<(v[0].rayon + v[1].rayon)*(v[0].rayon + v[1].rayon)){
             		if (v[0].py>v[1].py){
             			v[0].py+=2;
@@ -77,6 +68,32 @@ public class Simu {
             			v[1].px+=2;
             		}
             	}
+            	
+            	//Energie
+            	for(int i=0;i<=1;i++)
+	            	if (v[i].collision==true){
+	            		if (v[i].energie<=0)
+	            			v[i].energie=0;
+	            		else
+	            			v[i].energie-=1;
+	            	}
+            	
+            	//Affichage
+            	
+            	//Barre de vie
+            	String e1 = "Energie joueur 1 : "+String.valueOf(v[0].energie);
+                String e2 = "Energie joueur 2 : "+String.valueOf(v[1].energie);
+                StdDraw.text(30, 95, e1);
+                StdDraw.text(30, 90, e2);
+                
+                //Score
+		    	scoreV1+=v[0].px;
+		    	scoreV2+=v[1].px;
+		    	String t1 = String.valueOf(scoreV1); //On cast double en string pour StdDraw.text
+		    	String t2 = String.valueOf(scoreV2);
+	            StdDraw.setPenColor(Color.black);
+	            StdDraw.text(90, 95, "Joueur 1 : "+t1);
+	            StdDraw.text(90, 90,"Joueur 2 : "+t2);
 			    	
 	            draw(v, (int)(1000*delta));	
 	    	}
