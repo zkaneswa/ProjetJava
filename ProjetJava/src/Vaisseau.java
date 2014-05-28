@@ -20,7 +20,7 @@ public class Vaisseau {
 		public Vaisseau(double x, double y, double r, double reb, int player){
 			px = x;
 			py = y;
-			//rayon = r;
+			rayon = r;
 			rebond = reb;//Pour plus tard
 		}
 					
@@ -28,8 +28,10 @@ public class Vaisseau {
 			px = px + ax*delta;
 			py = py + ay*delta;//Pour la gravite
 			
-			//Commandes du joueur 1
+			
+			//Commandes du joueur 1			
 			if (player==PLAYER1){
+				
 		    	if(StdDraw.isKeyPressed(KeyEvent.VK_DOWN))
 		    		py -= MOVE-0.5;
 		    	if(StdDraw.isKeyPressed(KeyEvent.VK_UP))
@@ -48,34 +50,51 @@ public class Vaisseau {
 		    		px -= MOVE;
 		    	if(StdDraw.isKeyPressed(KeyEvent.VK_D))
 		    		px += MOVE+0.5;
+			
 			}
+			
 		    
 			//Limites de la fenetre
 	    	if(px<0) // a gauche
 				px = 0;
 			else if(px > xmax)// a droite
 				px = xmax;
-			
-							
-			
-			
-			
-			
+					
 			
 		}   
 
 
+		
 		
 		//Affiche images vaisseaux
 		public void draw(int player){
 			if (player == PLAYER1){
 
 				StdDraw.picture(px,py,"vaisseau1.png",40,35);
-				//StdDraw.setPenColor(Color.black);
-				//StdDraw.filledCircle(px-1.5, py+1.7, rayon);
+				StdDraw.setPenColor(Color.black);
+				StdDraw.filledCircle(px-1.5, py+1.7, rayon);
 
 			}else
 				StdDraw.picture(px,py,"vaisseau2.png",40,35);
+			StdDraw.setPenColor(Color.black);
+			StdDraw.filledCircle(px-1.5, py+1.7, rayon);
 		}
 		
+		
+		
+		
+		public void collisionHautTunnel(){
+			
+        	if (py+rayon>=Tunnel.tunnelHautPolygon[(int)px]){ //Contre tunnel haut
+        		py=Tunnel.tunnelHautPolygon[(int)px]-rayon;
+        		
+        	}
+      	}
+		
+		public void collisionBasTunnel(){
+			if (py-rayon<=Tunnel.tunnelBasPolygon[(int)px]){ //Contre tunnel bas
+        		py=Tunnel.tunnelBasPolygon[(int)px]+rayon;
+        		
+        	}
+		}
 }
