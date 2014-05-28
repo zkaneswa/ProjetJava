@@ -67,6 +67,7 @@ public class Simu {
             		collision=1;
             	}
             	if (v[0].py==v[1].py && v[0].px==v[1].px){						//Entre vaisseaux
+            		
             		collision=2;
             	}
 			    	
