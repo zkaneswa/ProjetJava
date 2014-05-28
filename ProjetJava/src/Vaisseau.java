@@ -10,8 +10,6 @@ public class Vaisseau {
 		double vy;
 		double rayon;
 		double rebond;
-	    static double scoreV1;
-	    static double scoreV2;
 		public final static int  MOVE=1;
 		public final static int PLAYER1=1;
 		public final static int PLAYER2=2;
@@ -28,7 +26,7 @@ public class Vaisseau {
 			px = px + ax*delta;
 			py = py + ay*delta;//Pour la gravite
 			
-			//Commandes du joueur 1
+			//Commandes du joueur 1			
 			if (player==PLAYER1){
 		    	if(StdDraw.isKeyPressed(KeyEvent.VK_DOWN))
 		    		py -= MOVE-0.5;
@@ -49,18 +47,13 @@ public class Vaisseau {
 		    	if(StdDraw.isKeyPressed(KeyEvent.VK_D))
 		    		px += MOVE+0.5;
 			}
-		    
+			
 			//Limites de la fenetre
 	    	if(px<0) // a gauche
 				px = 0;
 			else if(px > xmax)// a droite
 				px = xmax;
-			
-			if(py<0) // en bas
-				py = 0;						
-			else if(py>ymax) // en haut
-				py = ymax;
-		}    
+		}   
 		
 		//Affiche images vaisseaux
 		public void draw(int player){
@@ -68,7 +61,38 @@ public class Vaisseau {
 				StdDraw.picture(px,py,"vaisseau1.png",40,35);
 				StdDraw.setPenColor(Color.black);
 				StdDraw.filledCircle(px-1.5, py+1.7, rayon);
-			}else
+			}else{
 				StdDraw.picture(px,py,"vaisseau2.png",40,35);
+				StdDraw.setPenColor(Color.blue);
+				StdDraw.filledCircle(px-1.5, py+1.7, rayon);
+			}
+		}
+		
+		/*public int collision(double x, double y){
+			double dist = Math.pow((x-px), 2) + Math.pow((y-py), 2);
+			int collision = 0;
+			if (dist<=rayon){
+				collision = 1;
+			}
+			return collision;
+		}*/
+		
+		public void collisionHautTunnel(){
+        	if (py+rayon>=Tunnel.tunnelHautPolygon[(int)px]){ //Contre tunnel haut
+        		py=Tunnel.tunnelHautPolygon[(int)px]-rayon;
+        	}
+      	}
+		
+		public void collisionBasTunnel(){
+			if (py-rayon<=Tunnel.tunnelBasPolygon[(int)px]){ //Contre tunnel bas
+        		py=Tunnel.tunnelBasPolygon[(int)px]+rayon;
+        	}
+		}
+		
+		public void collisionVaisseau(){
+			double dist = Math.pow((this.px-px), 2) + Math.pow((this.py-py), 2);
+			if(dist<=rayon*rayon){
+				
+			}
 		}
 }

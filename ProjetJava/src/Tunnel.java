@@ -1,10 +1,13 @@
 
 public class Tunnel {
-	
-	static double tunnelHaut[] = new double [Simu.X_MAX];
-	static double tunnelBas[]= new double [Simu.X_MAX];
+
+
 	static double[] tunnelHautPolygon = new double[ Simu.X_MAX + 2];
 	static double[] tunnelBasPolygon = new double[ Simu.X_MAX + 2];
+	static double tunnelHaut[]= new double [Simu.X_MAX];
+	static double tunnelBas[]= new double [Simu.X_MAX];
+	
+
 	
 	Tunnel(){
 		//Initialisation	
@@ -14,6 +17,7 @@ public class Tunnel {
 		}
 	}
 	
+
 	public void tunnel() {
 		do {
 			tunnelHaut[ Simu.X_MAX - 1] = tunnelHaut[ Simu.X_MAX - 2] + Math.random()*10-5;
@@ -27,9 +31,12 @@ public class Tunnel {
 		while ( tunnelHaut[ Simu.X_MAX - 1] - tunnelBas[ Simu.X_MAX - 1] <20);	
 	}
 
+ 
+
 	public void afficheTunnel() {
 		
 		double[] x = new double[ Simu.X_MAX + 2]; // remplissage du decors
+
 		
 		for (int j = 0; j < Simu.X_MAX + 2; j++) {
 			if (j == 0) {
@@ -45,12 +52,20 @@ public class Tunnel {
 				tunnelHautPolygon[j] = tunnelHaut[j - 1];
 				tunnelBasPolygon[j] = tunnelBas[j - 1];
 			}
-		}
-		
-		StdDraw.setPenColor(StdDraw.RED);
-		StdDraw.filledPolygon(x, tunnelHautPolygon);
-		StdDraw.filledPolygon(x, tunnelBasPolygon);
+
+	
 	}
+	
+	StdDraw.setPenColor(StdDraw.RED);
+	StdDraw.filledPolygon(x, tunnelHautPolygon);
+	StdDraw.filledPolygon(x, tunnelBasPolygon);
+	
+	
+
+	}
+
+
+
 
 
 	public void decale() {
@@ -59,6 +74,7 @@ public class Tunnel {
 			tunnelBas[i] = tunnelBas[i + 1];
 		}
 	}
+
 }
-	
+
 
