@@ -52,8 +52,6 @@ public class Tunnel {
 				tunnelHautPolygon[j] = tunnelHaut[j - 1];
 				tunnelBasPolygon[j] = tunnelBas[j - 1];
 			}
-
-	
 	}
 	
 	StdDraw.setPenColor(StdDraw.RED);
