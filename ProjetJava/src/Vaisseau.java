@@ -8,11 +8,11 @@ public class Vaisseau {
 		double rayon;
 		double rebond;
 		int energie=10;
+		int exist=1;
+		int score;
 		public final static int  MOVE=1;
 		public final static int PLAYER1=0;
 		public final static int PLAYER2=1;
-		int exist=1;
-		int score;
 
 		//Constructeur
 		public Vaisseau(double x, double y, double r, double reb, int player){
