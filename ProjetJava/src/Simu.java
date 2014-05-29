@@ -13,6 +13,7 @@ public class Simu {
 	    	
 	    	boolean move = false; 
 		    int[] collide={0,0}; 
+		    int rdm=0;
 		    
 	    	// La grille
 	        StdDraw.setXscale(-WIDTH, X_MAX+WIDTH);
@@ -32,86 +33,111 @@ public class Simu {
 	    	    	
 	    	Tunnel t = new Tunnel();
 	    	
+	    	//Mis à jour du score tous les quarts de seconde
             TimerTask task = new TimerTask(){
     			public void run(){
     	            v[0].score+=v[0].px;
     	            v[1].score+=v[1].px;
     			}	
     		};
-    		
     		Timer timer = new Timer();
     		timer.scheduleAtFixedRate(task, 0, 250);
     		
+    		//Menu
+    		boolean choice=false;
+    		int nbJoueurs=0;
     		
+    		//while(choice!=true){
+    			StdDraw.text(20, 70, "Choisissez le nombre de joueurs avec les flèches Haut ou Bas. Validez avec la touche Entrée pour jouer.");
+	    		StdDraw.text(20, 60, "1 joueur");
+	    		StdDraw.text(20, 50, "2 joueurs");
+	    		StdDraw.text(20, 40, "3 joueurs");
+	    		StdDraw.text(20, 30, "4 joueurs");
+	    		
+	    		StdDraw.picture(15, 60, "Array.jpg.png",15,15);
+    		//}
     		
 	    	do{
-		            for(int i=0;i<=1;i++)
-		            	collide[i]=0; 
-	            	
-		            for (int i=0;i<=1;i++){
-		            	if (v[i].exist==1)
-		            		v[i].move(ax,ay,delta,X_MAX, Y_MAX,i);
-		            }
-	            	
-		            //Fond
-	            	StdDraw.clear(StdDraw.WHITE);
-		            
-	            	//Tunnel
-	            	t.tunnel();
-	            	t.afficheTunnel();
-	            	t.decale(); 
-	            	
-	            	//Collisions avec tunnel
-	            	collide=Vaisseau.collisionTunnel (v);
-		            
-	            	for (int i=0; i<=1; i++)
-	            		if (collide[i]==1 && v[i].energie > 0)
-	            			v[i].energie--;
-	            	
-	            	//Collision entre vaisseaux
-	            	double dist = (v[1].px-v[0].px)* (v[1].px-v[0].px) +  (v[1].py-v[0].py)*(v[1].py-v[0].py);
-	            	if(dist <(v[0].rayon + v[1].rayon)*(v[0].rayon + v[1].rayon)){
-	            		if (v[0].py>v[1].py){
-	            			v[0].py+=2;
-	            			v[1].py-=2;
-	            		}else{
-	            			v[0].py-=2;
-	            			v[1].py+=2;
-	            		}
-	            		
-	            		if (v[0].px>v[1].px){
-	            			v[0].px+=2;
-	            			v[1].px-=2;
-	            		}else{
-	            			v[0].px-=2;
-	            			v[1].px+=2;
-	            		}
-	            	}
-	
-		            // Score + energie en noir
-		            StdDraw.setPenColor(Color.black);
-		            
-	            	//Energie
-	            	String e1 = "Energie joueur 1 : "+String.valueOf(v[0].energie);
-	            	String e2 = "Energie joueur 2 : "+String.valueOf(v[1].energie);
-		            StdDraw.text(30, 95, e1);
-		            StdDraw.text(30, 90, e2);
-	            	
-				    //Score
-			    	String t1 = "Score joueur 1 : "+String.valueOf(v[0].score);
-			    	String t2 = "Score joueur 2 : "+String.valueOf(v[1].score);
-		            StdDraw.text(80, 95, t1);
-		            StdDraw.text(80, 90, t2);
-		            
-		            move = false ;
-		    		for (int i=0;i<=1;i++){
-		    			if (v[i].exist == 1)
-		    				move = true;
-		    		}
-		            				    	
-		            draw(v, (int)(1000*delta));
+	    		// Ràz des collisions
+    			for(int i=0;i<=1;i++)
+	            	collide[i]=0; 
+            	
+    			//Vérif si au moins un joueur en vie
+	            for (int i=0;i<=1;i++){
+	            	if (v[i].exist==1)
+	            		v[i].move(ax,ay,delta,X_MAX, Y_MAX,i);
+	            }
+            	
+	            //Fond
+            	StdDraw.clear(StdDraw.WHITE);
+	            
+            	//Tunnel
+            	t.tunnel();
+            	t.afficheTunnel();
+            	t.decale(); 
+            	
+            	//Vitesse de defilement tunnel
+            	rdm=StdRandom.uniform(100);
+            	if (rdm > 60){
+            		t.decale();
+            		t.decale();
+            		t.decale();
+            		t.decale();
+            		t.decale();
+            		t.decale();
+            	}
+            	
+            	//Collisions avec tunnel
+            	collide=Vaisseau.collisionTunnel (v);
+            	for (int i=0; i<=1; i++)
+            		if (collide[i]==1 && v[i].energie > 0)
+            			v[i].energie--;
+            	
+            	//Collision entre vaisseaux
+            	double dist = (v[1].px-v[0].px)* (v[1].px-v[0].px) +  (v[1].py-v[0].py)*(v[1].py-v[0].py);
+            	if(dist <(v[0].rayon + v[1].rayon)*(v[0].rayon + v[1].rayon)){
+            		if (v[0].py>v[1].py){
+            			v[0].py+=2;
+            			v[1].py-=2;
+            		}else{
+            			v[0].py-=2;
+            			v[1].py+=2;
+            		}
+            		
+            		if (v[0].px>v[1].px){
+            			v[0].px+=2;
+            			v[1].px-=2;
+            		}else{
+            			v[0].px-=2;
+            			v[1].px+=2;
+            		}
+            	}
+
+	            // Score + energie en noir
+	            StdDraw.setPenColor(Color.black);
+	            
+            	//Energie
+            	String e1 = "Energie joueur 1 : "+String.valueOf(v[0].energie);
+            	String e2 = "Energie joueur 2 : "+String.valueOf(v[1].energie);
+	            StdDraw.text(30, 95, e1);
+	            StdDraw.text(30, 90, e2);
+            	
+			    //Score
+		    	String t1 = "Score joueur 1 : "+String.valueOf(v[0].score);
+		    	String t2 = "Score joueur 2 : "+String.valueOf(v[1].score);
+	            StdDraw.text(80, 95, t1);
+	            StdDraw.text(80, 90, t2);
+	            
+	            move = false ;
+	    		for (int i=0;i<=1;i++){
+	    			if (v[i].exist == 1)
+	    				move = true;
+	    		}
+	            				    	
+	            draw(v, (int)(1000*delta));
 	    	}while (move);
 	    	
+	    	//Temps d'attente avant message de fin de partie
 	    	try {
 	    		Thread.sleep(1500);
 	    	}
