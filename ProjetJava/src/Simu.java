@@ -34,8 +34,8 @@ public class Simu {
 	    	
             TimerTask task = new TimerTask(){
     			public void run(){
-    	            scoreV1+=v[0].px;
-    	            scoreV2+=v[1].px;
+    	            v[0].score+=v[0].px;
+    	            v[1].score+=v[1].px;
     			}	
     		};
     		
@@ -98,8 +98,8 @@ public class Simu {
 		            StdDraw.text(30, 90, e2);
 	            	
 				    //Score
-			    	String t1 = "Score joueur 1 : "+String.valueOf(scoreV1);
-			    	String t2 = "Score joueur 2 : "+String.valueOf(scoreV2);
+			    	String t1 = "Score joueur 1 : "+String.valueOf(v[0].score);
+			    	String t2 = "Score joueur 2 : "+String.valueOf(v[1].score);
 		            StdDraw.text(80, 95, t1);
 		            StdDraw.text(80, 90, t2);
 		            
@@ -111,6 +111,25 @@ public class Simu {
 		            				    	
 		            draw(v, (int)(1000*delta));
 	    	}while (move);
+	    	
+	    	try {
+	    		Thread.sleep(1500);
+	    	}
+	    	catch(InterruptedException ex){
+	    		Thread.currentThread().interrupt();
+	    	}
+	    		
+	    	//Vainqueur
+	    	StdDraw.clear(StdDraw.WHITE);
+	    	int winner = 0;
+	    	for (int i=0;i<=1;i++){
+	    		if (v[i].score>v[winner].score)
+	    			winner=i;
+	    	}
+	    	String w = "Le vainqueur est le joueur "+String.valueOf(winner+1)+" avec comme score "+String.valueOf(v[winner].score);
+	    	StdDraw.setPenColor(Color.black);
+	    	StdDraw.text(50, 50, w);
+	    	StdDraw.show(1000);
 	    }  
 	    
 	    public static void draw(Vaisseau[] v, int time){
@@ -121,9 +140,7 @@ public class Simu {
 	    		}else{
 	    			v[i].draw(i);
 	    		}
-	    	}
-        	
-	        	
+	    	}	
 	        // display and pause
 	        StdDraw.show(time);	
 	    }   	
