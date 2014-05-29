@@ -10,8 +10,9 @@ public class Vaisseau {
 		int energie=10;
 		boolean collision = false;
 		public final static int  MOVE=1;
-		public final static int PLAYER1=1;
-		public final static int PLAYER2=2;
+		public final static int PLAYER1=0;
+		public final static int PLAYER2=1;
+		int exist=1;
 
 		//Constructeur
 		public Vaisseau(double x, double y, double r, double reb, int player){
