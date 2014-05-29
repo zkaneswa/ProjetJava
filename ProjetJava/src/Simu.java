@@ -34,8 +34,8 @@ public class Simu {
 	    	
             TimerTask task = new TimerTask(){
     			public void run(){
-    	            v[0].score+=v[0].px;
-    	            v[1].score+=v[1].px;
+    	            scoreV1+=v[0].px;
+    	            scoreV2+=v[1].px;
     			}	
     		};
     		
@@ -63,16 +63,21 @@ public class Simu {
 	            	
 	            	//Collisions avec tunnel
 	            	collide=Vaisseau.collisionTunnel (v);
+	            	
+	            	
 		            
 	            	for (int i=0; i<=1; i++)
 	            		if (collide[i]==1 && v[i].energie > 0)
-	            			v[i].energie--;
+	            			 v[i].energie--;
+	            		
+	            	
+	            	
 	            	
 	            	//Collision entre vaisseaux
 	            	double dist = (v[1].px-v[0].px)* (v[1].px-v[0].px) +  (v[1].py-v[0].py)*(v[1].py-v[0].py);
 	            	if(dist <(v[0].rayon + v[1].rayon)*(v[0].rayon + v[1].rayon)){
 	            		if (v[0].py>v[1].py){
-	            			v[0].py+=2;
+	            			v[0].py+=5;
 	            			v[1].py-=2;
 	            		}else{
 	            			v[0].py-=2;
@@ -98,8 +103,8 @@ public class Simu {
 		            StdDraw.text(30, 90, e2);
 	            	
 				    //Score
-			    	String t1 = "Score joueur 1 : "+String.valueOf(v[0].score);
-			    	String t2 = "Score joueur 2 : "+String.valueOf(v[1].score);
+			    	String t1 = "Score joueur 1 : "+String.valueOf(scoreV1);
+			    	String t2 = "Score joueur 2 : "+String.valueOf(scoreV2);
 		            StdDraw.text(80, 95, t1);
 		            StdDraw.text(80, 90, t2);
 		            
@@ -111,36 +116,19 @@ public class Simu {
 		            				    	
 		            draw(v, (int)(1000*delta));
 	    	}while (move);
-	    	
-	    	try {
-	    		Thread.sleep(1500);
-	    	}
-	    	catch(InterruptedException ex){
-	    		Thread.currentThread().interrupt();
-	    	}
-	    		
-	    	//Vainqueur
-	    	StdDraw.clear(StdDraw.WHITE);
-	    	int winner = 0;
-	    	for (int i=0;i<=1;i++){
-	    		if (v[i].score>v[winner].score)
-	    			winner=i;
-	    	}
-	    	String w = "Le vainqueur est le joueur "+String.valueOf(winner+1)+" avec comme score "+String.valueOf(v[winner].score);
-	    	StdDraw.setPenColor(Color.black);
-	    	StdDraw.text(50, 50, w);
-	    	StdDraw.show(1000);
 	    }  
 	    
 	    public static void draw(Vaisseau[] v, int time){
 	    	for (int i=0;i<=1;i++){
-	    		if (v[i].energie == 0){					//VŽrif si joueur vivant
+	    		if (v[i].energie == 0){					//VÅ½rif si joueur vivant
 	    			v[i].exist=0;
-	    			v[i].px=0;							//Score arrte de s'incrŽmenter
+	    			v[i].px=0;							//Score arrï¿½te de s'incrÅ½menter
 	    		}else{
 	    			v[i].draw(i);
 	    		}
-	    	}	
+	    	}
+        	
+	        	
 	        // display and pause
 	        StdDraw.show(time);	
 	    }   	
