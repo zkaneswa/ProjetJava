@@ -1,5 +1,4 @@
 
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 public class Vaisseau {
@@ -59,12 +58,12 @@ public class Vaisseau {
 		public void draw(int player){
 			if (player == PLAYER1){
 				StdDraw.picture(px,py,"vaisseau1.png",40,35);
-				StdDraw.setPenColor(Color.black);
-				StdDraw.filledCircle(px-1.5, py+1.7, rayon);
+				//StdDraw.setPenColor(Color.black);
+				//StdDraw.filledCircle(px-1.5, py+1.7, rayon);
 			}else{
 				StdDraw.picture(px,py,"vaisseau2.png",40,35);
-				StdDraw.setPenColor(Color.blue);
-				StdDraw.filledCircle(px-1.5, py+1.7, rayon);
+				//StdDraw.setPenColor(Color.blue);
+				//StdDraw.filledCircle(px-1.5, py+1.7, rayon);
 			}
 		}
 		
@@ -77,16 +76,19 @@ public class Vaisseau {
 			return collision;
 		}*/
 		
-		public boolean collisionTunnel(){
-        	if (py+rayon>=Tunnel.tunnelHautPolygon[(int)px]){ //Contre tunnel haut
-        		py=Tunnel.tunnelHautPolygon[(int)px]-rayon;
-        		collision=true;
-        	}
-        	if (py-rayon<=Tunnel.tunnelBasPolygon[(int)px]){ //Contre tunnel bas
-        		py=Tunnel.tunnelBasPolygon[(int)px]+rayon;
-        		collision = true;
-        	}
-        	return collision;
+		public static int[] collisionTunnel(Vaisseau[] v){
+			int[] collide = {0, 0};
+			for (int i=0; i<=1; i++){
+	        	if (v[i].py+v[i].rayon>=Tunnel.tunnelHautPolygon[(int)v[i].px]){ //Contre tunnel haut
+	        		v[i].py=Tunnel.tunnelHautPolygon[(int)v[i].px]-v[i].rayon;
+	        		collide[i]=1;
+	        	}
+	        	if (v[i].py-v[i].rayon<=Tunnel.tunnelBasPolygon[(int)v[i].px]){ //Contre tunnel bas
+	        		v[i].py=Tunnel.tunnelBasPolygon[(int)v[i].px]+v[i].rayon;
+	        		collide[i] = 1;
+	        	}
+			}
+        	return collide;
       	}
 		
 		/*public void collisionVaisseau(){

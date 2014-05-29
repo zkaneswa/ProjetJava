@@ -12,8 +12,8 @@ public class Tunnel {
 	Tunnel(){
 		//Initialisation	
 		for (int i = 0; i < Simu.X_MAX; i++) {
-			tunnelHaut[i] = 60;
-			tunnelBas[i] = 30;
+			tunnelHaut[i] = 70;
+			tunnelBas[i] = 20;
 		}
 	}
 	
