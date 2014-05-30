@@ -17,6 +17,7 @@ public class Tunnel {
 
 	public void tunnel() {
 		do {
+			//Ajout d'une valeur aleatoire dans la derniere case du tableau
 			tunnelHaut[ Simu.X_MAX - 1] = tunnelHaut[ Simu.X_MAX - 2] + Math.random()*10-5;
 			tunnelBas[ Simu.X_MAX - 1] = tunnelBas[Simu.X_MAX - 2] + Math.random()*10-5;
 	

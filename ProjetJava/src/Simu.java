@@ -12,14 +12,14 @@ public class Simu {
 	    	
 	    	boolean move; 
 	    	
+	    	// La grille
+	        StdDraw.setXscale(5, X_MAX-5);
+	        StdDraw.setYscale(0, Y_MAX);
+	        
 	    	//Menu ecran titre
     		boolean choice=false;
     		int nbJoueurs=0;
     		int posArray = 60;
-		    
-	    	// La grille
-	        StdDraw.setXscale(-WIDTH, X_MAX+WIDTH);
-	        StdDraw.setYscale(-WIDTH, Y_MAX+WIDTH);
 	        
 	        while(choice!=true){
     			//Logo
@@ -117,14 +117,14 @@ public class Simu {
             	
             	//Vitesse de defilement tunnel
             	rdm=StdRandom.uniform(100);
-            	if (rdm > 60){
+ /*           	if (rdm > 60){
             		t.decale();
             		t.decale();
             		t.decale();
             		t.decale();
             		t.decale();
             		t.decale();
-            	}
+            	}*/
             	
             	//Collisions avec tunnel
             	collide=Vaisseau.collisionTunnel (v,nbJoueurs);
@@ -133,24 +133,12 @@ public class Simu {
             			v[i].energie--;
             	
             	//Rebond entre vaisseaux
-            	/*double dist = (v[1].px-v[0].px)* (v[1].px-v[0].px) +  (v[1].py-v[0].py)*(v[1].py-v[0].py);
-            	if(dist <(v[0].rayon + v[1].rayon)*(v[0].rayon + v[1].rayon)){
-            		if (v[0].py>v[1].py){
-            			v[0].py+=2;
-            			v[1].py-=2;
-            		}else{
-            			v[0].py-=2;
-            			v[1].py+=2;
-            		}
-            		
-            		if (v[0].px>v[1].px){
-            			v[0].px+=2;
-            			v[1].px-=2;
-            		}else{
-            			v[0].px-=2;
-            			v[1].px+=2;
-            		}
-            	}*/
+            	if (nbJoueurs>=2)
+            		Vaisseau.rebondVaisseau(v,1,0);
+            	if (nbJoueurs>=3){
+	            	Vaisseau.rebondVaisseau(v,2,0);
+	            	Vaisseau.rebondVaisseau(v,2,1);
+            	}
 
 	            // Score + energie en noir
 	            StdDraw.setPenColor(Color.black);
@@ -175,8 +163,13 @@ public class Simu {
 	    			if (v[i].exist == 1)
 	    				move = true;
 	    		}
-	            				    	
-	            draw(v, (int)(1000*delta),nbJoueurs);
+	    		rdm=StdRandom.uniform(100);
+	    		if (rdm < 20)
+	    			draw(v, (int)(5000*delta),nbJoueurs);
+	    		if (rdm > 20 && rdm < 60)
+	    			draw(v, (int)(1000*delta),nbJoueurs);
+	    		if (rdm >80)
+	    			draw(v, (int)(200*delta),nbJoueurs);
 	    	}while (move);
 	    	
 	    	//Temps d'attente avant message de fin de partie

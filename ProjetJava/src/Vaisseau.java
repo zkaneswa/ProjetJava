@@ -1,10 +1,13 @@
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 public class Vaisseau {
 		//Attributs de Vaisseau
 		double px;
 		double py;
+		double vx;
+		double vy;
 		double rayon;
 		double rebond;
 		int energie=10;
@@ -22,7 +25,7 @@ public class Vaisseau {
 					
 		public void move (double ax, double ay, double delta, int xmax, int ymax, int player){	
 			px = px + ax*delta;
-			py = py + ay*delta;//Pour la gravite
+			py = py + ay*delta;
 			
 			//Commandes du joueur 1			
 			if (player==0){
@@ -46,13 +49,21 @@ public class Vaisseau {
 		    		px += MOVE+0.5;
 			}else{
 				//Commandes du joueur3
+				if(StdDraw.isKeyPressed(KeyEvent.VK_J))
+		    		py -= MOVE-0.5;
+		    	if(StdDraw.isKeyPressed(KeyEvent.VK_U))
+		    		py += MOVE;
+		    	if(StdDraw.isKeyPressed(KeyEvent.VK_H))
+		    		px -= MOVE;
+		    	if(StdDraw.isKeyPressed(KeyEvent.VK_K))
+		    		px += MOVE+0.5;
 			}
 			
 			//Limites de la fenetre
 	    	if(px<0) // a gauche
 				px = 0;
-			else if(px > xmax)// a droite
-				px = xmax;
+			else if(px > xmax-3)// a droite
+				px = xmax-3;
 		}   
 		
 		//Affiche images vaisseaux
@@ -67,6 +78,8 @@ public class Vaisseau {
 				//StdDraw.filledCircle(px-1.5, py+1.7, rayon);
 			}else{
 				//image joueur 3
+				StdDraw.setPenColor(Color.blue);
+				StdDraw.filledCircle(px-1.5, py+1.7, rayon);
 			}
 		}
 		
@@ -86,5 +99,16 @@ public class Vaisseau {
         	return collide;
       	}
 		
-		
+		public static void rebondVaisseau(Vaisseau[]v, int l, int m){
+			double dist = (v[l].px-v[m].px)* (v[l].px-v[m].px) +  (v[l].py-v[m].py)*(v[l].py-v[m].py);
+        	if(dist <(v[m].rayon + v[l].rayon)*(v[m].rayon + v[l].rayon)){
+        		if (v[m].py>v[l].py || v[m].px>v[l].px){
+        			v[m].py+=2;
+        			v[l].py-=2;
+        		}else{
+        			v[m].py-=2;
+        			v[l].py+=2;
+        		}
+        	}
+		}
 }
