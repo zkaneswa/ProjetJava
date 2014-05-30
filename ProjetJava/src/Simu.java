@@ -10,44 +10,18 @@ public class Simu {
 	    
 	    public static void main (String [] args){
 	    	
-	    	boolean move = false; 
-		    int[] collide={0,0}; 
-		    int rdm=0;
+	    	boolean move; 
+	    	
+	    	//Menu ecran titre
+    		boolean choice=false;
+    		int nbJoueurs=0;
+    		int posArray = 60;
 		    
 	    	// La grille
 	        StdDraw.setXscale(-WIDTH, X_MAX+WIDTH);
 	        StdDraw.setYscale(-WIDTH, Y_MAX+WIDTH);
-
-	    	// Les vaisseaux
-	    	final Vaisseau[] v = new Vaisseau[2];
-	    	v[0] = new Vaisseau(X_MAX/2,Y_MAX/2,WIDTH*4.5,0.7,Vaisseau.PLAYER1);
-	    	v[1] = new Vaisseau(X_MAX/2,Y_MAX/3,WIDTH*4.5,0.7,Vaisseau.PLAYER2);
-
-	    	// Acceleration (en m/s/s)
-	    	double ax = 0;
-	    	double ay = -20;
-	    	
-	    	// Intervalle de temps (en s)
-	    	double delta = 0.02;
-	    	    	
-	    	Tunnel t = new Tunnel();
-	    	
-	    	//Mise ˆ jour du score tous les quarts de seconde
-            TimerTask task = new TimerTask(){
-    			public void run(){
-    	            v[0].score+=v[0].px;
-    	            v[1].score+=v[1].px;
-    			}	
-    		};
-    		Timer timer = new Timer();
-    		timer.scheduleAtFixedRate(task, 0, 250);
-    		
-    		//Menu ecran titre
-    		boolean choice=false;
-    		int nbJoueurs=0;
-    		int posArray = 60;
-    		
-    		while(choice!=true){
+	        
+	        while(choice!=true){
     			//Logo
     			StdDraw.picture(50, 85, "269526.gif",60,35);
     			
@@ -86,14 +60,49 @@ public class Simu {
 	    		
 	    		StdDraw.clear(StdDraw.WHITE);	
     		}
+	        
+	        //nb joueurs pour le timer
+	        final int nbJoueursCopie=nbJoueurs;
+	        
+	        int[] collide=new int[nbJoueurs]; 
+		    int rdm=0;
+
+	    	// Les vaisseaux
+	    	final Vaisseau[] v = new Vaisseau[nbJoueurs];
+	    	for (int i=0;i<nbJoueurs;i++){
+	    		v[i] = new Vaisseau(X_MAX/2,Y_MAX/(2+i),WIDTH*4.5,0.7,i);
+	    	}
+	    	
+	    	// Tunnel
+	    	Tunnel t = new Tunnel();
+
+	    	// Acceleration (en m/s/s)
+	    	double ax = 0;
+	    	double ay = -20;
+	    	
+	    	// Intervalle de temps (en s)
+	    	double delta = 0.02;
+	    	
+	    	//MAJ du score tous les quarts de seconde
+            TimerTask task = new TimerTask(){
+    			public void run(){
+    				for (int i=0;i<nbJoueursCopie;i++)
+    					v[i].score+=v[i].px;
+    			}	
+    		};
+    		Timer timer = new Timer();
+    		timer.scheduleAtFixedRate(task, 0, 250);
     		
+    		
+    		
+    		//On joue tant qu'il reste un joueur vivant
 	    	do{
-	    		// Rˆz des collisions
-    			for(int i=0;i<=1;i++)
+	    		// RAZ des collisions
+    			for(int i=0;i<nbJoueurs;i++)
 	            	collide[i]=0; 
             	
-    			//VŽrif si au moins un des joueurs est en vie
-	            for (int i=0;i<=1;i++){
+    			//Si joueur en vie il se dŽplace
+	            for (int i=0;i<nbJoueurs;i++){
 	            	if (v[i].exist==1)
 	            		v[i].move(ax,ay,delta,X_MAX, Y_MAX,i);
 	            }
@@ -101,7 +110,7 @@ public class Simu {
 	            //Fond
             	StdDraw.clear(StdDraw.WHITE);
 	            
-            	//Tunnel
+            	//Affichage tunnel
             	t.tunnel();
             	t.afficheTunnel();
             	t.decale(); 
@@ -118,13 +127,13 @@ public class Simu {
             	}
             	
             	//Collisions avec tunnel
-            	collide=Vaisseau.collisionTunnel (v);
-            	for (int i=0; i<=1; i++)
+            	collide=Vaisseau.collisionTunnel (v,nbJoueurs);
+            	for (int i=0; i<nbJoueurs; i++)
             		if (collide[i]==1 && v[i].energie > 0)
             			v[i].energie--;
             	
             	//Rebond entre vaisseaux
-            	double dist = (v[1].px-v[0].px)* (v[1].px-v[0].px) +  (v[1].py-v[0].py)*(v[1].py-v[0].py);
+            	/*double dist = (v[1].px-v[0].px)* (v[1].px-v[0].px) +  (v[1].py-v[0].py)*(v[1].py-v[0].py);
             	if(dist <(v[0].rayon + v[1].rayon)*(v[0].rayon + v[1].rayon)){
             		if (v[0].py>v[1].py){
             			v[0].py+=2;
@@ -141,30 +150,33 @@ public class Simu {
             			v[0].px-=2;
             			v[1].px+=2;
             		}
-            	}
+            	}*/
 
 	            // Score + energie en noir
 	            StdDraw.setPenColor(Color.black);
 	            
             	//Energie
-            	String e1 = "Energie joueur 1 : "+String.valueOf(v[0].energie);
-            	String e2 = "Energie joueur 2 : "+String.valueOf(v[1].energie);
-	            StdDraw.text(30, 95, e1);
-	            StdDraw.text(30, 90, e2);
+	            String [] e = new String [nbJoueurs];
+	            for (int i=0;i<nbJoueurs;i++){
+	            	e [i] = "Energie joueur "+ (i+1) +" : " +String.valueOf(v[i].energie);
+	            	StdDraw.text(30,95-i*5,e[i]);
+	            }
             	
 			    //Score
-		    	String t1 = "Score joueur 1 : "+String.valueOf(v[0].score);
-		    	String t2 = "Score joueur 2 : "+String.valueOf(v[1].score);
-	            StdDraw.text(80, 95, t1);
-	            StdDraw.text(80, 90, t2);
+	            String [] s = new String [nbJoueurs];
+	            for (int i=0;i<nbJoueurs;i++){
+	            	s [i] = "Score joueur "+ (i+1) +" : " +String.valueOf(v[i].score);
+	            	StdDraw.text(80,95-i*5,s[i]);
+	            }
 	            
+	            //Verif si au moins un joueur est en vie
 	            move = false ;
-	    		for (int i=0;i<=1;i++){
+	    		for (int i=0;i<nbJoueurs;i++){
 	    			if (v[i].exist == 1)
 	    				move = true;
 	    		}
 	            				    	
-	            draw(v, (int)(1000*delta));
+	            draw(v, (int)(1000*delta),nbJoueurs);
 	    	}while (move);
 	    	
 	    	//Temps d'attente avant message de fin de partie
@@ -178,7 +190,7 @@ public class Simu {
 	    	//Vainqueur
 	    	StdDraw.clear(StdDraw.WHITE);
 	    	int winner = 0;
-	    	for (int i=0;i<=1;i++){
+	    	for (int i=0;i<nbJoueurs;i++){
 	    		if (v[i].score>v[winner].score)
 	    			winner=i;
 	    	}
@@ -188,9 +200,9 @@ public class Simu {
 	    	StdDraw.show(1000);
 	    }  
 	    
-	    public static void draw(Vaisseau[] v, int time){
-	    	for (int i=0;i<=1;i++){
-	    		if (v[i].energie == 0){					//VŽrif si joueur vivant
+	    public static void draw(Vaisseau[] v, int time,int nbJoueur){
+	    	for (int i=0;i<nbJoueur;i++){
+	    		if (v[i].energie == 0){					//Verif si joueur vivant
 	    			v[i].exist=0;
 	    			v[i].px=0;							//Score arrte de s'incrŽmenter
 	    		}else{
