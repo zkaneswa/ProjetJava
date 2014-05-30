@@ -1,19 +1,20 @@
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 public class Vaisseau {
 		//Attributs de Vaisseau
 		double px;
 		double py;
+		double vx;
+		double vy;
 		double rayon;
 		double rebond;
 		int energie=10;
-		//boolean collision = false;
-		public final static int  MOVE=1;
-		public final static int PLAYER1=0;
-		public final static int PLAYER2=1;
+
 		int exist=1;
 		int score;
+		public final static int  MOVE=1;
 
 		//Constructeur
 		public Vaisseau(double x, double y, double r, double reb, int player){
@@ -25,10 +26,10 @@ public class Vaisseau {
 					
 		public void move (double ax, double ay, double delta, int xmax, int ymax, int player){	
 			px = px + ax*delta;
-			py = py + ay*delta;//Pour la gravite
+			py = py + ay*delta;
 			
 			//Commandes du joueur 1			
-			if (player==PLAYER1){
+			if (player==0){
 		    	if(StdDraw.isKeyPressed(KeyEvent.VK_DOWN))
 		    		py -= MOVE-0.5;
 		    	if(StdDraw.isKeyPressed(KeyEvent.VK_UP))
@@ -38,7 +39,7 @@ public class Vaisseau {
 		    	if(StdDraw.isKeyPressed(KeyEvent.VK_RIGHT))
 		    		px += MOVE+0.5;
 		    //Commandes du joueur 2
-			}else{
+			}else if (player==1){
 		    	if(StdDraw.isKeyPressed(KeyEvent.VK_S))
 		    		py -= MOVE-0.5;
 		    	if(StdDraw.isKeyPressed(KeyEvent.VK_Z))
@@ -47,40 +48,46 @@ public class Vaisseau {
 		    		px -= MOVE;
 		    	if(StdDraw.isKeyPressed(KeyEvent.VK_D))
 		    		px += MOVE+0.5;
+			}else{
+				//Commandes du joueur3
+				if(StdDraw.isKeyPressed(KeyEvent.VK_J))
+		    		py -= MOVE-0.5;
+		    	if(StdDraw.isKeyPressed(KeyEvent.VK_U))
+		    		py += MOVE;
+		    	if(StdDraw.isKeyPressed(KeyEvent.VK_H))
+		    		px -= MOVE;
+		    	if(StdDraw.isKeyPressed(KeyEvent.VK_K))
+		    		px += MOVE+0.5;
 			}
 			
 			//Limites de la fenetre
 	    	if(px<0) // a gauche
 				px = 0;
-			else if(px > xmax)// a droite
-				px = xmax;
+			else if(px > xmax-3)// a droite
+				px = xmax-3;
 		}   
 		
 		//Affiche images vaisseaux
 		public void draw(int player){
-			if (player == PLAYER1){
+			if (player == 0){
 				StdDraw.picture(px,py,"vaisseau1.png",40,35);
 				//StdDraw.setPenColor(Color.black);
 				//StdDraw.filledCircle(px-1.5, py+1.7, rayon);
-			}else{
+			}else if (player==1){
 				StdDraw.picture(px,py,"vaisseau2.png",40,35);
 				//StdDraw.setPenColor(Color.blue);
 				//StdDraw.filledCircle(px-1.5, py+1.7, rayon);
+			}else{
+				//image joueur 3
+				StdDraw.setPenColor(Color.blue);
+				StdDraw.filledCircle(px-1.5, py+1.7, rayon);
 			}
 		}
 		
-		/*public int collision(double x, double y){
-			double dist = Math.pow((x-px), 2) + Math.pow((y-py), 2);
-			int collision = 0;
-			if (dist<=rayon){
-				collision = 1;
-			}
-			return collision;
-		}*/
 		
-		public static int[] collisionTunnel(Vaisseau[] v){
-			int[] collide = {0, 0};
-			for (int i=0; i<=1; i++){
+		public static int[] collisionTunnel(Vaisseau[] v,int nbJoueur){
+			int[] collide = new int[nbJoueur];
+			for (int i=0; i<nbJoueur; i++){
 	        	if (v[i].py+v[i].rayon>=Tunnel.tunnelHautPolygon[(int)v[i].px]){ //Contre tunnel haut
 	        		v[i].py=Tunnel.tunnelHautPolygon[(int)v[i].px]-v[i].rayon;
 	        		collide[i]=1;
@@ -93,10 +100,16 @@ public class Vaisseau {
         	return collide;
       	}
 		
-		/*public void collisionVaisseau(){
-			double dist = Math.pow((this.px-px), 2) + Math.pow((this.py-py), 2);
-			if(dist<=rayon*rayon){
-				
-			}
-		}*/
+		public static void rebondVaisseau(Vaisseau[]v, int l, int m){
+			double dist = (v[l].px-v[m].px)* (v[l].px-v[m].px) +  (v[l].py-v[m].py)*(v[l].py-v[m].py);
+        	if(dist <(v[m].rayon + v[l].rayon)*(v[m].rayon + v[l].rayon)){
+        		if (v[m].py>v[l].py || v[m].px>v[l].px){
+        			v[m].py+=2;
+        			v[l].py-=2;
+        		}else{
+        			v[m].py-=2;
+        			v[l].py+=2;
+        		}
+        	}
+		}
 }
