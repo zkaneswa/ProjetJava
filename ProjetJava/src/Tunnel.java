@@ -25,6 +25,7 @@ public class Tunnel {
 	
 			if (tunnelHaut[ Simu.X_MAX - 1] > Simu.Y_MAX - 16) // pour que le decorhaut reste dans la fenetre
 				tunnelHaut[ Simu.X_MAX - 1] = Simu.Y_MAX - 16;
+			
 			if (tunnelBas[ Simu.X_MAX - 1] < 0) // pour que le decorbas reste dans la fenetre
 				tunnelBas[ Simu.X_MAX - 1] = 0;
 		} 
