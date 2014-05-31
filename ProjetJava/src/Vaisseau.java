@@ -11,7 +11,6 @@ public class Vaisseau {
 		double rayon;
 		double rebond;
 		int energie=10;
-
 		int exist=1;
 		int score;
 		public final static int  MOVE=1;
@@ -78,9 +77,9 @@ public class Vaisseau {
 				//StdDraw.setPenColor(Color.blue);
 				//StdDraw.filledCircle(px-1.5, py+1.7, rayon);
 			}else{
-				//image joueur 3
-				StdDraw.setPenColor(Color.blue);
-				StdDraw.filledCircle(px-1.5, py+1.7, rayon);
+				StdDraw.picture(px,py,"vaisseau3.png",40*2,35*2);
+			//	StdDraw.setPenColor(Color.blue);
+				//StdDraw.filledCircle(px-1.5, py+1.7, rayon);
 			}
 		}
 		
@@ -112,4 +111,24 @@ public class Vaisseau {
         		}
         	}
 		}
+		
+		
+		//VAINQUEUR
+		public static void Vainqueur(Vaisseau[]v, int nbJoueur){
+			int winner = 0;
+			for (int i=0;i<nbJoueur;i++){
+				if (v[i].score>v[winner].score)
+					winner=i;
+			}
+			if(nbJoueur>=2){
+				String w = "Le vainqueur est le joueur "+String.valueOf(winner+1)+" avec comme score "+String.valueOf(v[winner].score);
+				StdDraw.text(50, 50, w);
+			}else{
+				String w = "Vous avez perdue avec comme score "+String.valueOf(v[winner].score);
+				StdDraw.text(50, 50, w);
+			}
+				StdDraw.setPenColor(Color.black);
+				StdDraw.show(1000);
+		}
+			
 }

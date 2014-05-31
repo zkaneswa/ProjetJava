@@ -183,15 +183,8 @@ public class Simu {
 	    		
 	    	//Vainqueur
 	    	StdDraw.clear(StdDraw.WHITE);
-	    	int winner = 0;
-	    	for (int i=0;i<nbJoueurs;i++){
-	    		if (v[i].score>v[winner].score)
-	    			winner=i;
-	    	}
-	    	String w = "Le vainqueur est le joueur "+String.valueOf(winner+1)+" avec comme score "+String.valueOf(v[winner].score);
-	    	StdDraw.setPenColor(Color.black);
-	    	StdDraw.text(50, 50, w);
-	    	StdDraw.show(1000);
+	    	Vaisseau.Vainqueur(v, nbJoueurs);
+	    
 	    }  
 	    
 
