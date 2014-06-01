@@ -25,11 +25,11 @@ public class Simu {
     			//Logo
     			StdDraw.picture(50, 85, "269526.gif",60,35);
     			
-    			StdDraw.text(50, 70, "Choisissez le nombre de joueurs avec les fl�ches Haut ou Bas.");
+    			StdDraw.text(50, 70, "Choisissez le nombre de joueurs avec les flèches Haut ou Bas.");
     			StdDraw.text(50, 60, "1 joueur");
 	    		StdDraw.text(50, 50, "2 joueurs");
 	    		StdDraw.text(50, 40, "3 joueurs");
-	    		StdDraw.text(50, 30, "Validez avec la touche Entr�e pour jouer.");
+	    		StdDraw.text(50, 30, "Validez avec la touche Entrée pour jouer.");
 	    		
 	    		//Fleche de choix
 	    		StdDraw.picture(30, posArray, "Array.jpg.png",10,10);
@@ -118,20 +118,30 @@ public class Simu {
             	
             	//Vitesse de defilement tunnel
             	rdm=StdRandom.uniform(100);
- /*           	if (rdm > 60){
+            	if (rdm > 60){
             		t.decale();
             		t.decale();
             		t.decale();
             		t.decale();
-            		t.decale();
-            		t.decale();
-            	}*/
+            	}
             	
             	//Collisions avec tunnel
             	collide=Vaisseau.collisionTunnel (v,nbJoueurs);
             	for (int i=0; i<nbJoueurs; i++)
-            		if (collide[i]==1 && v[i].energie > 0)
+            		if (collide[i] ==1 && v[i].energie > 0 && v[i].invincible == false){
             			v[i].energie--;
+            			v[i].invincible=true;
+            			
+            			//Invincibilite d'une sec apres collision
+                		TimerTask task2 = new TimerTask(){
+                			public void run(){
+                				for (int i=0;i<nbJoueursCopie;i++)
+                					v[i].invincible=false;		
+                	        }	
+                	    };
+                	        Timer timer2 = new Timer();
+                	        timer2.schedule(task2, 1000);
+            		}
             	
             	//Rebond entre vaisseaux
             	if (nbJoueurs>=2)
@@ -165,13 +175,7 @@ public class Simu {
 	    			if (v[i].exist == 1)
 	    				move = true;
 	    		}
-	    		rdm=StdRandom.uniform(100);
-	    		if (rdm < 20)
-	    			draw(v, (int)(5000*delta),nbJoueurs);
-	    		if (rdm > 20 && rdm < 60)
-	    			draw(v, (int)(1000*delta),nbJoueurs);
-	    		if (rdm >80)
-	    			draw(v, (int)(200*delta),nbJoueurs);
+	    		draw(v, (int)(1000*delta),nbJoueurs);
 	    	}while (move);
 
 	    	
@@ -185,9 +189,7 @@ public class Simu {
 	    		
 	    	//Vainqueur
 	    	StdDraw.clear(StdDraw.WHITE);
-	    	Vaisseau.Vainqueur(v, nbJoueurs);
-	    	//StdDraw.text(50, 30, "Retour au menu principal");
-	    
+	    	Vaisseau.vainqueur(v, nbJoueurs);
 	    }  
 	    
 
