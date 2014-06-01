@@ -128,7 +128,10 @@ public class Vaisseau {
 				StdDraw.text(50, 50, w);
 			}
 				StdDraw.setPenColor(Color.black);
+				StdDraw.text(50, 30, "Retour au menu principal");
 				StdDraw.show(1000);
+		    	
+
 		}
 			
 }

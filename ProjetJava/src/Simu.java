@@ -86,7 +86,8 @@ public class Simu {
 	    	//MAJ du score tous les quarts de seconde
             TimerTask task = new TimerTask(){
     			public void run(){
-
+    				for (int i=0;i<nbJoueursCopie;i++)
+    					v[i].score+=v[i].px;
     			}	
     		};
     		Timer timer = new Timer();
@@ -142,6 +143,7 @@ public class Simu {
 
 	            // Score + energie en noir
 	            StdDraw.setPenColor(Color.black);
+	           
 	            
             	//Energie
 	            String [] e = new String [nbJoueurs];
@@ -184,6 +186,7 @@ public class Simu {
 	    	//Vainqueur
 	    	StdDraw.clear(StdDraw.WHITE);
 	    	Vaisseau.Vainqueur(v, nbJoueurs);
+	    	//StdDraw.text(50, 30, "Retour au menu principal");
 	    
 	    }  
 	    
