@@ -52,6 +52,7 @@ public class Simu {
 	    					v[i].score+=v[i].px;
 	    			}	
 	    		};
+	    		
 	    		Timer timer = new Timer();
 	    		timer.scheduleAtFixedRate(task, 0, 250);
 	    		
@@ -77,19 +78,12 @@ public class Simu {
 	            	StdDraw.clear(StdDraw.WHITE);
 		            
 	            	//Affichage tunnel
-	            	t.tunnel();
-	            	t.afficheTunnel();
-	            	t.decale(); 
+	            	t.getTunnel();
+	            
 	            	
 	            	//Vitesse de defilement tunnel
-	            	int rdm=StdRandom.uniform(100);
-	            	
-	            	if (rdm > 60){
-	            		t.decale();
-	            		t.decale();
-	            		t.decale();
-	            		t.decale();
-	            	}
+	            	t.defilementTunnel();
+	           
 	            	
 	            	//Collisions avec tunnel
 	            	collide=Vaisseau.collisionTunnel (v,m.nbJoueurs);
@@ -127,7 +121,7 @@ public class Simu {
 		            for (int i=0;i<m.nbJoueurs;i++){
 		            	e [i] = "Energie joueur "+ (i+1) +" : " +String.valueOf(v[i].energie);
 		            	StdDraw.text(30,95-i*5,e[i]);
-		            }
+		            	}
 	            	
 				    //Score
 		            String [] s = new String [m.nbJoueurs];
@@ -166,6 +160,8 @@ public class Simu {
 	        }while(m.tryAgain);
 
 	      }  
+	    
+	    
 	    
 	    
 

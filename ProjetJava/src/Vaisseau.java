@@ -9,7 +9,7 @@ public class Vaisseau {
 		double vx;
 		double vy;
 		double rayon;
-		double rebond;
+		double rebond; 
 		int energie=10;
 		int exist=1;
 		int score;
