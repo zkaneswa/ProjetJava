@@ -24,42 +24,52 @@ public class Vaisseau {
 			rebond = reb;//Pour plus tard
 		}
 					
-		public void move (double ax, double ay, double delta, int xmax, int ymax, int player){	
+		public void move (double ax, double ay, double delta, int xmax, int ymax, int player, boolean inversed_keys){	
 			px = px + ax*delta;
 			py = py + ay*delta;
+			int up=0, down=0, left=0, right=0, temp;
 			
-			//Commandes du joueur 1			
-			if (player==0){
-		    	if(StdDraw.isKeyPressed(KeyEvent.VK_DOWN))
-		    		py -= MOVE-0.5;
-		    	if(StdDraw.isKeyPressed(KeyEvent.VK_UP))
-		    		py += MOVE;
-		    	if(StdDraw.isKeyPressed(KeyEvent.VK_LEFT))
-		    		px -= MOVE;
-		    	if(StdDraw.isKeyPressed(KeyEvent.VK_RIGHT))
-		    		px += MOVE+0.5;
-		    //Commandes du joueur 2
-			}else if (player==1){
-		    	if(StdDraw.isKeyPressed(KeyEvent.VK_S))
-		    		py -= MOVE-0.5;
-		    	if(StdDraw.isKeyPressed(KeyEvent.VK_Z))
-		    		py += MOVE;
-		    	if(StdDraw.isKeyPressed(KeyEvent.VK_Q))
-		    		px -= MOVE;
-		    	if(StdDraw.isKeyPressed(KeyEvent.VK_D))
-		    		px += MOVE+0.5;
-			}else{
-				//Commandes du joueur3
-				if(StdDraw.isKeyPressed(KeyEvent.VK_J))
-		    		py -= MOVE-0.5;
-		    	if(StdDraw.isKeyPressed(KeyEvent.VK_U))
-		    		py += MOVE;
-		    	if(StdDraw.isKeyPressed(KeyEvent.VK_H))
-		    		px -= MOVE;
-		    	if(StdDraw.isKeyPressed(KeyEvent.VK_K))
-		    		px += MOVE+0.5;
+			if (player == 0){
+				down=KeyEvent.VK_DOWN;
+				up=KeyEvent.VK_UP;
+				left=KeyEvent.VK_LEFT;
+				right=KeyEvent.VK_RIGHT;
+			}
+			else if (player == 1){
+				down=KeyEvent.VK_S;
+				up=KeyEvent.VK_Z;
+				left=KeyEvent.VK_Q;
+				right=KeyEvent.VK_D;
+			}
+			else {
+				down=KeyEvent.VK_J;
+				up=KeyEvent.VK_U;
+				left=KeyEvent.VK_H;
+				right=KeyEvent.VK_K;
 			}
 			
+			if (inversed_keys){
+				// Inversion Up/Down
+				temp=down;
+				down=up;
+				up=temp;
+				
+				// Inversion Left/Right
+				temp=left;
+				left=right;
+				right=temp;
+			}
+			
+			// DŽplacement du vaisseau			
+		    if(StdDraw.isKeyPressed(down));
+		    	py -= MOVE-0.5;
+		    if(StdDraw.isKeyPressed(up))
+		    	py += MOVE+0.5;
+		    if(StdDraw.isKeyPressed(left))
+		    	px -= MOVE;
+		    if(StdDraw.isKeyPressed(right))
+		    	px += MOVE+0.5;
+
 			//Limites de la fenetre
 	    	if(px<0) // a gauche
 				px = 0;
@@ -69,13 +79,13 @@ public class Vaisseau {
 		
 		//Affiche images vaisseaux
 		public void draw(int player){
-			if (player == 0){
-				StdDraw.picture(px,py,"vaisseau1.png",40,35);
-			}else if (player==1){
-				StdDraw.picture(px,py,"vaisseau2.png",40,35);
-			}else{
-				StdDraw.picture(px,py,"vaisseau3.png",40*2,35*2);
-			}
+			String pathShip="";
+			if (invincible)
+				//pathShip="vaisseau_inv.png";
+				StdDraw.filledCircle(px, py, Simu.WIDTH);
+			else 
+				pathShip="vaisseau"+(player+1)+".png";
+			StdDraw.picture(px,py,pathShip,40,35);
 		}
 		
 		

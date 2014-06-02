@@ -60,6 +60,15 @@ public class Tunnel {
 		}
 	}
 
+	public void defileTunnel(){
+		int rdm=StdRandom.uniform(100);
+    	if (rdm > 60){
+    		decale();
+    		decale();
+    		decale();
+    		decale();
+    	}
+	}
 }
 
 
