@@ -64,8 +64,8 @@ public class Simu {
 	        //nb joueurs pour le timer
 	        final int nbJoueursCopie=nbJoueurs;
 	        
+	        //Collision
 	        int[] collide=new int[nbJoueurs]; 
-		    int rdm=0;
 
 	    	// Les vaisseaux
 	    	final Vaisseau[] v = new Vaisseau[nbJoueurs];
@@ -94,7 +94,6 @@ public class Simu {
     		timer.scheduleAtFixedRate(task, 0, 250);
     		
     		
-    		
     		//On joue tant qu'il reste un joueur vivant
 	    	do{
 
@@ -102,7 +101,7 @@ public class Simu {
     			for(int i=0;i<nbJoueurs;i++)
 	            	collide[i]=0; 
             	
-    			//Si joueur en vie il se d�place
+    			//Si joueur en vie il se déplace
 	            for (int i=0;i<nbJoueurs;i++){
 	            	if (v[i].exist==1)
 	            		v[i].move(ax,ay,delta,X_MAX, Y_MAX,i);
@@ -117,7 +116,7 @@ public class Simu {
             	t.decale(); 
             	
             	//Vitesse de defilement tunnel
-            	rdm=StdRandom.uniform(100);
+            	int rdm=StdRandom.uniform(100);
             	if (rdm > 60){
             		t.decale();
             		t.decale();
@@ -179,31 +178,32 @@ public class Simu {
 	    	}while (move);
 
 	    	
-	    	//Temps d'attente avant message de fin de partie
+	    	//Temps d'attente avant image de game over
 	    	try {
-	    		Thread.sleep(1500);
+	    		Thread.sleep(500);
 	    	}
 	    	catch(InterruptedException ex){
 	    		Thread.currentThread().interrupt();
 	    	}
+	    	
+	    	StdDraw.picture(50, 50, "game_over.jpg", 100, 100);
+	    	StdDraw.show(1000);
 	    		
 	    	//Vainqueur
-	    	StdDraw.clear(StdDraw.WHITE);
 	    	Vaisseau.vainqueur(v, nbJoueurs);
 	    }  
 	    
 
-	    public static void draw(Vaisseau[] v, int time,int nbJoueur){
+	    public static void draw(Vaisseau[] v, int time, int nbJoueur){
 	    	for (int i=0;i<nbJoueur;i++){
 	    		if (v[i].energie == 0){					//Verif si joueur vivant
 	    			v[i].exist=0;
-	    			v[i].px=0;							//Score arr�te de s'incrŽmenter
+	    			v[i].px=0;							//Score arrete de s'incrementer
 	    		}else{
 	    			v[i].draw(i);
 	    		}
 	    	}
         	
-	        	
 	        // display and pause
 	        StdDraw.show(time);	
 	    }   

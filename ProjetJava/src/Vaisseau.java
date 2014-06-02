@@ -108,8 +108,9 @@ public class Vaisseau {
 		}
 		
 		
-		//VAINQUEUR
+		//Affiche vainqueur
 		public static void vainqueur(Vaisseau[]v, int nbJoueur){
+			StdDraw.setPenColor(Color.red);
 			int winner = 0;
 			for (int i=0;i<nbJoueur;i++){
 				if (v[i].score>v[winner].score)
@@ -117,13 +118,12 @@ public class Vaisseau {
 			}
 			if(nbJoueur>=2){
 				String w = "Le vainqueur est le joueur "+String.valueOf(winner+1)+" avec comme score "+String.valueOf(v[winner].score)+".";
-				StdDraw.text(50, 50, w);
+				StdDraw.text(50, 30, w);
 			}else{
 				String w = "Vous avez perdu avec comme score "+String.valueOf(v[winner].score)+".";
-				StdDraw.text(50, 50, w);
+				StdDraw.text(50, 30, w);
 			}
-			StdDraw.setPenColor(Color.black);
-			StdDraw.text(50, 30, "Retour au menu principal");
+			StdDraw.text(50, 20, "Retour au menu principal");
 			StdDraw.show(1000);
 		}
 			
