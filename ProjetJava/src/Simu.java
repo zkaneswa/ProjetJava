@@ -21,21 +21,17 @@ public class Simu {
 
 	        Menu m=new Menu();
 	        m.principal();
-	        final int nbJoueurs=m.nbJoueurs;
-    	
-
-    		
-
+	
 	        //nb joueurs pour le timer
 	       
-	        final int nbJoueursCopie=nbJoueurs;
+	        final int nbJoueursCopie=m.nbJoueurs;
 	        
-	        int[] collide=new int[nbJoueurs]; 
+	        int[] collide=new int[m.nbJoueurs]; 
 		    int rdm=0;
 
 	    	// Les vaisseaux
-	    	final Vaisseau[] v = new Vaisseau[nbJoueurs];
-	    	for (int i=0;i<nbJoueurs;i++){
+	    	final Vaisseau[] v = new Vaisseau[m.nbJoueurs];
+	    	for (int i=0;i<m.nbJoueurs;i++){
 	    		v[i] = new Vaisseau(X_MAX/2,Y_MAX/(2+i),WIDTH*4.5,0.7,i);
 	    	}
 	    	
@@ -65,11 +61,11 @@ public class Simu {
 	    	do{
 
 	    		// RAZ des collisions
-    			for(int i=0;i<nbJoueurs;i++)
+    			for(int i=0;i<m.nbJoueurs;i++)
 	            	collide[i]=0; 
             	
     			//Si joueur en vie il se d�place
-	            for (int i=0;i<nbJoueurs;i++){
+	            for (int i=0;i<m.nbJoueurs;i++){
 	            	if (v[i].exist==1)
 	            		v[i].move(ax,ay,delta,X_MAX, Y_MAX,i);
 	            }
@@ -95,19 +91,20 @@ public class Simu {
 
             	
             	//Collisions avec tunnel
-            	collide=Vaisseau.collisionTunnel (v,nbJoueurs);
-            	for (int i=0; i<nbJoueurs; i++)
+            	collide=Vaisseau.collisionTunnel (v,m.nbJoueurs);
+            	for (int i=0; i<m.nbJoueurs; i++)
             		if (collide[i] ==1 && v[i].energie > 0 && v[i].invincible == false){
             			v[i].energie--;
-       			v[i].invincible=true;
+            			v[i].invincible=true;
+            			//v[i].StdDraw.picture(, y, s);
             			
        			
             			//Invincibilite d'une sec apres collision
                 		TimerTask task2 = new TimerTask(){
                 			public void run(){
                 				for (int i=0;i<nbJoueursCopie;i++)
-                					v[i].invincible=false;		
-                	        }	
+                					v[i].invincible=false;
+                				                	        }	
                 	    };
                 	        Timer timer2 = new Timer();
                 	        timer2.schedule(task2, 1000);
@@ -115,9 +112,9 @@ public class Simu {
 
             	
             	//Rebond entre vaisseaux
-            	if (nbJoueurs>=2)
+            	if (m.nbJoueurs>=2)
             		Vaisseau.rebondVaisseau(v,1,0);
-            	if (nbJoueurs>=3){
+            	if (m.nbJoueurs>=3){
 	            	Vaisseau.rebondVaisseau(v,2,0);
 	            	Vaisseau.rebondVaisseau(v,2,1);
             	}
@@ -127,36 +124,29 @@ public class Simu {
 	           
 	            
             	//Energie
-	            String [] e = new String [nbJoueurs];
-	            for (int i=0;i<nbJoueurs;i++){
+	            String [] e = new String [m.nbJoueurs];
+	            for (int i=0;i<m.nbJoueurs;i++){
 	            	e [i] = "Energie joueur "+ (i+1) +" : " +String.valueOf(v[i].energie);
 	            	StdDraw.text(30,95-i*5,e[i]);
 	            }
             	
 			    //Score
-	            String [] s = new String [nbJoueurs];
-	            for (int i=0;i<nbJoueurs;i++){
+	            String [] s = new String [m.nbJoueurs];
+	            for (int i=0;i<m.nbJoueurs;i++){
 	            	s [i] = "Score joueur "+ (i+1) +" : " +String.valueOf(v[i].score);
 	            	StdDraw.text(80,95-i*5,s[i]);
 	            }
 	            
 	            //Verif si au moins un joueur est en vie
 	            move = false ;
-	    		for (int i=0;i<nbJoueurs;i++){
+	    		for (int i=0;i<m.nbJoueurs;i++){
 	    			if (v[i].exist == 1)
 	    				move = true;
 	    		}
 
 	    		rdm=StdRandom.uniform(100);
-	    		if (rdm < 20)
-	    			draw(v, (int)(5000*delta),nbJoueurs);
-	    		if (rdm > 20 && rdm < 60)
-	    			draw(v, (int)(1000*delta),nbJoueurs);
-	    		if (rdm >80)
-	    			draw(v, (int)(200*delta),nbJoueurs);
 	    		
-
-	    		draw(v, (int)(1000*delta),nbJoueurs);
+	    		draw(v, (int)(1000*delta),m.nbJoueurs);
 
 	    	}while (move);
 
@@ -172,9 +162,10 @@ public class Simu {
 	    	//Vainqueur
 	    	StdDraw.clear(StdDraw.WHITE);
 
-	    	Vaisseau.vainqueur(v, nbJoueurs);
+	    	Vaisseau.vainqueur(v, m.nbJoueurs);
 	    	
 	      }  
+	    
 	    
 
 	    public static void draw(Vaisseau[] v, int time,int nbJoueur){

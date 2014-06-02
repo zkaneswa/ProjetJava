@@ -2,8 +2,8 @@ import java.awt.event.KeyEvent;
 
 
 public class Menu {
-	
 	int nbJoueurs=0;
+	
 
 	public  void principal(){
 	
@@ -11,6 +11,7 @@ public class Menu {
 		int posArray = 60;
     
 		    while(choice!=true){
+		    	
 				//Logo
 				StdDraw.picture(50, 85, "269526.gif",60,35);
 				
