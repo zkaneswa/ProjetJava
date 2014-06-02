@@ -22,6 +22,8 @@ public class Vaisseau {
 			rayon = r;
 			rebond = reb;//Pour plus tard
 		}
+		
+		
 					
 		public void move (double ax, double ay, double delta, int xmax, int ymax, int player){	
 			px = px + ax*delta;
@@ -66,16 +68,14 @@ public class Vaisseau {
 				px = xmax-3;
 		}   
 		
+		
+		
 		//Affiche images vaisseaux
 		public void draw(int player){
 			if (player == 0){
 				StdDraw.picture(px,py,"vaisseau1.png",40,35);
-				//StdDraw.setPenColor(Color.black);
-				//StdDraw.filledCircle(px-1.5, py+1.7, rayon);
 			}else if (player==1){
 				StdDraw.picture(px,py,"vaisseau2.png",40,35);
-				//StdDraw.setPenColor(Color.blue);
-				//StdDraw.filledCircle(px-1.5, py+1.7, rayon);
 			}else{
 				StdDraw.picture(px,py,"vaisseau3.png",40*2,35*2);
 			//	StdDraw.setPenColor(Color.blue);
@@ -84,6 +84,8 @@ public class Vaisseau {
 		}
 		
 		
+		
+		//Collision vaisseau et tunnel
 		public static int[] collisionTunnel(Vaisseau[] v,int nbJoueur){
 			int[] collide = new int[nbJoueur];
 			for (int i=0; i<nbJoueur; i++){
@@ -99,6 +101,10 @@ public class Vaisseau {
         	return collide;
       	}
 		
+		
+		
+		
+		//Collision entre vaisseau 
 		public static void rebondVaisseau(Vaisseau[]v, int l, int m){
 			double dist = (v[l].px-v[m].px)* (v[l].px-v[m].px) +  (v[l].py-v[m].py)*(v[l].py-v[m].py);
         	if(dist <(v[m].rayon + v[l].rayon)*(v[m].rayon + v[l].rayon)){
@@ -111,6 +117,8 @@ public class Vaisseau {
         		}
         	}
 		}
+		
+		
 		
 		
 		//VAINQUEUR
@@ -131,6 +139,8 @@ public class Vaisseau {
 				StdDraw.text(50, 30, "Retour au menu principal");
 				StdDraw.show(1000);
 		    	
+	    	
+
 
 		}
 			
