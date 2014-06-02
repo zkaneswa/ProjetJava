@@ -126,5 +126,4 @@ public class Vaisseau {
 			StdDraw.text(50, 20, "Retour au menu principal");
 			StdDraw.show(1000);
 		}
-			
 }
