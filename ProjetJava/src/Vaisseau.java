@@ -13,6 +13,7 @@ public class Vaisseau {
 		int energie=10;
 		int exist=1;
 		int score;
+		boolean invincible;
 		public final static int  MOVE=1;
 
 		//Constructeur
@@ -78,8 +79,6 @@ public class Vaisseau {
 				StdDraw.picture(px,py,"vaisseau2.png",40,35);
 			}else{
 				StdDraw.picture(px,py,"vaisseau3.png",40*2,35*2);
-			//	StdDraw.setPenColor(Color.blue);
-				//StdDraw.filledCircle(px-1.5, py+1.7, rayon);
 			}
 		}
 		
@@ -122,26 +121,23 @@ public class Vaisseau {
 		
 		
 		//VAINQUEUR
-		public static void Vainqueur(Vaisseau[]v, int nbJoueur){
+		public static void vainqueur(Vaisseau[]v, int nbJoueur){
 			int winner = 0;
 			for (int i=0;i<nbJoueur;i++){
 				if (v[i].score>v[winner].score)
 					winner=i;
 			}
 			if(nbJoueur>=2){
-				String w = "Le vainqueur est le joueur "+String.valueOf(winner+1)+" avec comme score "+String.valueOf(v[winner].score);
+				String w = "Le vainqueur est le joueur "+String.valueOf(winner+1)+" avec comme score "+String.valueOf(v[winner].score)+".";
 				StdDraw.text(50, 50, w);
 			}else{
-				String w = "Vous avez perdue avec comme score "+String.valueOf(v[winner].score);
+				String w = "Vous avez perdu avec comme score "+String.valueOf(v[winner].score)+".";
 				StdDraw.text(50, 50, w);
 			}
-				StdDraw.setPenColor(Color.black);
-				StdDraw.text(50, 30, "Retour au menu principal");
-				StdDraw.show(1000);
-		    	
-	    	
-
-
+			
+			StdDraw.setPenColor(Color.black);
+			StdDraw.text(50, 30, "Retour au menu principal");
+			StdDraw.show(1000);
 		}
 			
 }

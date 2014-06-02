@@ -18,11 +18,14 @@ public class Simu {
 	        StdDraw.setYscale(0, Y_MAX);
 	        
 	    	//Menu ecran titre
+
 	        Menu m=new Menu();
 	        m.principal();
 	        final int nbJoueurs=m.nbJoueurs;
     	
-	        
+
+    		
+
 	        //nb joueurs pour le timer
 	       
 	        final int nbJoueursCopie=nbJoueurs;
@@ -81,14 +84,35 @@ public class Simu {
             	
             	//Vitesse de defilement tunnel
             	rdm=StdRandom.uniform(100);
+
             	
+            	if (rdm > 60){
+            		t.decale();
+            		t.decale();
+            		t.decale();
+            		t.decale();
+            	}
+
             	
             	//Collisions avec tunnel
             	collide=Vaisseau.collisionTunnel (v,nbJoueurs);
             	for (int i=0; i<nbJoueurs; i++)
-            		if (collide[i]==1 && v[i].energie > 0)
+            		if (collide[i] ==1 && v[i].energie > 0 && v[i].invincible == false){
             			v[i].energie--;
-            	
+       			v[i].invincible=true;
+            			
+       			
+            			//Invincibilite d'une sec apres collision
+                		TimerTask task2 = new TimerTask(){
+                			public void run(){
+                				for (int i=0;i<nbJoueursCopie;i++)
+                					v[i].invincible=false;		
+                	        }	
+                	    };
+                	        Timer timer2 = new Timer();
+                	        timer2.schedule(task2, 1000);
+            		}
+
             	
             	//Rebond entre vaisseaux
             	if (nbJoueurs>=2)
@@ -122,6 +146,7 @@ public class Simu {
 	    			if (v[i].exist == 1)
 	    				move = true;
 	    		}
+
 	    		rdm=StdRandom.uniform(100);
 	    		if (rdm < 20)
 	    			draw(v, (int)(5000*delta),nbJoueurs);
@@ -130,6 +155,9 @@ public class Simu {
 	    		if (rdm >80)
 	    			draw(v, (int)(200*delta),nbJoueurs);
 	    		
+
+	    		draw(v, (int)(1000*delta),nbJoueurs);
+
 	    	}while (move);
 
 	    	
@@ -143,10 +171,10 @@ public class Simu {
 	    		
 	    	//Vainqueur
 	    	StdDraw.clear(StdDraw.WHITE);
-	    	Vaisseau.Vainqueur(v, nbJoueurs);
+
+	    	Vaisseau.vainqueur(v, nbJoueurs);
 	    	
-	    
-	    }  
+	      }  
 	    
 
 	    public static void draw(Vaisseau[] v, int time,int nbJoueur){
