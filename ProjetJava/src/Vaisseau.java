@@ -123,7 +123,6 @@ public class Vaisseau {
 				String w = "Vous avez perdu avec comme score "+String.valueOf(v[winner].score)+".";
 				StdDraw.text(50, 30, w);
 			}
-			StdDraw.text(50, 20, "Retour au menu principal");
 			StdDraw.show(1000);
 		}
 }
