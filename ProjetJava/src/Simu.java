@@ -98,6 +98,8 @@ public class Simu {
 	                			public void run(){
 	                				for (int i=0;i<nbJoueursCopie;i++){
 	                					v[i].invincible=false;
+	                					
+	                					
 	                			}
 	                			}	
 	                	    };
@@ -157,11 +159,10 @@ public class Simu {
 		    	
 		    	//Try again?
 		    	m.retourMenu();
+		    	
 	        }while(m.tryAgain);
 
 	      }  
-	    
-	    
 	    
 	    
 

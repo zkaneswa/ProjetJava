@@ -6,6 +6,7 @@ public class Tunnel {
 	static double tunnelBasPolygon[] = new double[ Simu.X_MAX + 2];
 	static double tunnelHaut[]= new double [Simu.X_MAX];
 	static double tunnelBas[]= new double [Simu.X_MAX];
+	static double[] x = new double[ Simu.X_MAX +2]; // remplissage
 	
 	Tunnel(){
 		//Initialisation	
@@ -31,7 +32,7 @@ public class Tunnel {
 	}
 
 	public void afficheTunnel() {
-		double[] x = new double[ Simu.X_MAX +2]; // remplissage du decors
+	//	double[] x = new double[ Simu.X_MAX +2]; // remplissage du decors
 		
 		for (int j = 0; j < Simu.X_MAX+2 ; j++) {
 			if (j == 0) {
@@ -68,10 +69,11 @@ public class Tunnel {
 	}
 	
 	//Vitesse de defilement tunnel
+	
+	
+	public void defilementTunnel(){
 	int rdm=StdRandom.uniform(100);
 	int i=60;
-	public void defilementTunnel(){
-	
 	if (rdm > i){
 		decale();
 		decale();
