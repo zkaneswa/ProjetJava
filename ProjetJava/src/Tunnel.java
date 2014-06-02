@@ -59,8 +59,14 @@ public class Tunnel {
 			tunnelBas[i] = tunnelBas[i + 1];
 		}
 	}
-
-	public void defileTunnel(){
+	
+	public void getTunnel(){
+		tunnel();
+		afficheTunnel();
+		decale();
+	}
+	
+	public void defilementTunnel(){
 		int rdm=StdRandom.uniform(100);
     	if (rdm > 60){
     		decale();

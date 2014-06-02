@@ -15,11 +15,11 @@ public class Menu {
 			//Logo
 			StdDraw.picture(50, 85, "269526.gif",60,35);
 			
-			StdDraw.text(50, 70, "Choisissez le nombre de joueurs avec les flèches Haut ou Bas.");
+			StdDraw.text(50, 70, "Choisissez le nombre de joueurs avec les fleches Haut ou Bas.");
 			StdDraw.text(50, 60, "1 joueur");
 			StdDraw.text(50, 50, "2 joueurs");
 			StdDraw.text(50, 40, "3 joueurs");
-			StdDraw.text(50, 30, "Validez avec la touche Entrée pour jouer.");
+			StdDraw.text(50, 30, "Validez avec la touche Entree pour jouer.");
 			
 			//Fleche de choix
 			StdDraw.picture(30, posArray, "Array.jpg.png",10,10);
@@ -53,7 +53,7 @@ public class Menu {
 	
 	public void retourMenu(){
 		StdDraw.setPenColor(Color.red);
-		StdDraw.text(50, 20, "Appuyez sur Entrée pour retourner au menu principal.");
+		StdDraw.text(50, 20, "Appuyez sur Entree pour retourner au menu principal.");
 		StdDraw.show(1000);
 		int input1=nextArrow();
 		if (input1==3){

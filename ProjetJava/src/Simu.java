@@ -21,7 +21,7 @@ public class Simu {
 	        
 	    	//Menu ecran titre
 	        Menu m=new Menu();
-	        
+
 	        do{
 		        m.principal();
 		        
@@ -53,10 +53,15 @@ public class Simu {
 	    					v[i].score+=v[i].px;
 	    			}	
 	    		};
+	    		
 	    		Timer timer = new Timer();
 	    		timer.scheduleAtFixedRate(task, 0, 250);
 	    		
-	    		
+
+	    	
+	    	
+	    	
+
 	    		//On joue tant qu'il reste un joueur vivant
 		    	do{
 	
@@ -89,12 +94,10 @@ public class Simu {
 	            	StdDraw.clear(StdDraw.WHITE);
 		            
 	            	//Affichage tunnel
-	            	t.tunnel();
-	            	t.afficheTunnel();
-	            	t.decale(); 
+	            	t.getTunnel();
 	            	
 	            	//Vitesse de defilement tunnel
-	            	t.defileTunnel();
+	            	t.defilementTunnel();
 	            	
 	            	// Collisions avec le tunnel stockees dans le tableau collide
 	            	collide=Vaisseau.collisionTunnel (v,m.nbJoueurs);
@@ -104,13 +107,15 @@ public class Simu {
 	            		if (collide[i] ==1 && v[i].energie > 0 && v[i].invincible == false){
 	            			v[i].energie--;
 	            			v[i].invincible=true;
+	            			
 	       			
 	            			//Invincibilite d'une sec apres collision
 	                		TimerTask task2 = new TimerTask(){
 	                			public void run(){
-	                				for (int i=0;i<nbJoueursCopie;i++)
-	                					v[i].invincible=false;		
-	                	        }	
+	                				for (int i=0;i<nbJoueursCopie;i++){
+	                					v[i].invincible=false;
+	                			}
+	                			}	
 	                	    };
 	                	        Timer timer2 = new Timer();
 	                	        timer2.schedule(task2, 1000);
@@ -132,7 +137,7 @@ public class Simu {
 		            for (int i=0;i<m.nbJoueurs;i++){
 		            	e [i] = "Energie joueur "+ (i+1) +" : " +String.valueOf(v[i].energie);
 		            	StdDraw.text(30,95-i*5,e[i]);
-		            }
+		            	}
 	            	
 				    //Score
 		            String [] s = new String [m.nbJoueurs];
@@ -147,6 +152,8 @@ public class Simu {
 		    			if (v[i].exist == 1)
 		    				move = true;
 		    		}
+		    		
+		    		
 		    		draw(v, (int)(1000*delta),m.nbJoueurs);
 		    	}while (move);
 	
@@ -167,8 +174,12 @@ public class Simu {
 		    	//Try again?
 		    	m.retourMenu();
 		    	
-	        }while (m.tryAgain);
+	        }while(m.tryAgain);
+
 	      }  
+	    
+	    
+	    
 	    
 
 	    public static void draw(Vaisseau[] v, int time, int nbJoueur){

@@ -81,8 +81,7 @@ public class Vaisseau {
 		public void draw(int player){
 			String pathShip="";
 			if (invincible)
-				//pathShip="vaisseau_inv.png";
-				StdDraw.filledCircle(px, py, Simu.WIDTH);
+				pathShip="vaisseauclign.png";
 			else 
 				pathShip="vaisseau"+(player+1)+".png";
 			StdDraw.picture(px,py,pathShip,40,35);
