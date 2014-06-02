@@ -23,8 +23,6 @@ public class Vaisseau {
 			rayon = r;
 			rebond = reb;//Pour plus tard
 		}
-		
-		
 					
 		public void move (double ax, double ay, double delta, int xmax, int ymax, int player){	
 			px = px + ax*delta;
@@ -69,22 +67,20 @@ public class Vaisseau {
 				px = xmax-3;
 		}   
 		
-		
-		
 		//Affiche images vaisseaux
 		public void draw(int player){
+		 
 			if (player == 0){
 				StdDraw.picture(px,py,"vaisseau1.png",40,35);
 			}else if (player==1){
 				StdDraw.picture(px,py,"vaisseau2.png",40,35);
-			}else{
-				StdDraw.picture(px,py,"vaisseau3.png",40*2,35*2);
+			}else {
+				StdDraw.picture(px,py,"vaisseau3.png",40,35);
 			}
+		
 		}
 		
 		
-		
-		//Collision vaisseau et tunnel
 		public static int[] collisionTunnel(Vaisseau[] v,int nbJoueur){
 			int[] collide = new int[nbJoueur];
 			for (int i=0; i<nbJoueur; i++){
@@ -100,10 +96,6 @@ public class Vaisseau {
         	return collide;
       	}
 		
-		
-		
-		
-		//Collision entre vaisseau 
 		public static void rebondVaisseau(Vaisseau[]v, int l, int m){
 			double dist = (v[l].px-v[m].px)* (v[l].px-v[m].px) +  (v[l].py-v[m].py)*(v[l].py-v[m].py);
         	if(dist <(v[m].rayon + v[l].rayon)*(v[m].rayon + v[l].rayon)){
@@ -118,10 +110,9 @@ public class Vaisseau {
 		}
 		
 		
-		
-		
-		//VAINQUEUR
+		//Affiche vainqueur
 		public static void vainqueur(Vaisseau[]v, int nbJoueur){
+			StdDraw.setPenColor(Color.red);
 			int winner = 0;
 			for (int i=0;i<nbJoueur;i++){
 				if (v[i].score>v[winner].score)
@@ -129,15 +120,11 @@ public class Vaisseau {
 			}
 			if(nbJoueur>=2){
 				String w = "Le vainqueur est le joueur "+String.valueOf(winner+1)+" avec comme score "+String.valueOf(v[winner].score)+".";
-				StdDraw.text(50, 50, w);
+				StdDraw.text(50, 30, w);
 			}else{
 				String w = "Vous avez perdu avec comme score "+String.valueOf(v[winner].score)+".";
-				StdDraw.text(50, 50, w);
+				StdDraw.text(50, 30, w);
 			}
-			
-			StdDraw.setPenColor(Color.black);
-			StdDraw.text(50, 30, "Retour au menu principal");
 			StdDraw.show(1000);
 		}
-			
 }
