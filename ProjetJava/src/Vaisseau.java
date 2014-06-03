@@ -71,20 +71,24 @@ public class Vaisseau {
 		    	px += MOVE+0.5;
 
 			//Limites de la fenetre
-	    	if(px<0) // a gauche
-				px = 0;
+	    	if(px<5) // a gauche
+				px =5 ;
 			else if(px > xmax-3)// a droite
 				px = xmax-3;
 		}   
 		
+		
+		
 		//Affiche images vaisseaux
 		public void draw(int player){
+
 			String pathShip="";
 			if (invincible)
 				pathShip="vaisseauclign.png";
 			else 
 				pathShip="vaisseau"+(player+1)+".png";
 			StdDraw.picture(px,py,pathShip,40,35);
+
 		}
 		
 		
@@ -134,4 +138,7 @@ public class Vaisseau {
 			}
 			StdDraw.show(1000);
 		}
+		
+		
+		
 }

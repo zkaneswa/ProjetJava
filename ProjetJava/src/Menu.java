@@ -5,14 +5,18 @@ public class Menu {
 	
 	int nbJoueurs=0;
 	boolean tryAgain = false;
+	
 
 	public void principal(){
 		
 		boolean choice=false;
 		int posArray = 60;
     
+
+	
 	    while(choice!=true){
 			//Logo
+	    	
 			StdDraw.picture(50, 85, "269526.gif",60,35);
 			
 			StdDraw.text(50, 70, "Choisissez le nombre de joueurs avec les fleches Haut ou Bas.");
@@ -23,6 +27,7 @@ public class Menu {
 			
 			//Fleche de choix
 			StdDraw.picture(30, posArray, "Array.jpg.png",10,10);
+			StdDraw.show(10);
 			
 			//Recup input
 			int input=nextArrow();
@@ -52,14 +57,22 @@ public class Menu {
 	}
 	
 	public void retourMenu(){
+	
 		StdDraw.setPenColor(Color.red);
 		StdDraw.text(50, 20, "Appuyez sur Entree pour retourner au menu principal.");
-		StdDraw.show(1000);
+		StdDraw.show(100);
+		
 		int input1=nextArrow();
 		if (input1==3){
-			tryAgain=true;
-		}
+					tryAgain=true;
+			
+			}else{
+				
+			}
+		
 	}
+	
+	
 	
 	 public static int nextArrow(){
 			int res=-1;

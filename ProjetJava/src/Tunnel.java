@@ -31,6 +31,7 @@ public class Tunnel {
 	}
 
 	public void afficheTunnel() {
+
 		double[] x = new double[ Simu.X_MAX + 2]; // remplissage du decors
 		
 		for (int j = 0; j < Simu.X_MAX + 2; j++) {
@@ -69,6 +70,10 @@ public class Tunnel {
 		decale();
 	}
 	
+
+	//Vitesse de defilement tunnel
+	
+	
 	public void defilementTunnel(){
 		int rdm=StdRandom.uniform(100);
     	if (rdm > 60){
@@ -93,6 +98,7 @@ public class Tunnel {
 			Simu.nbTours++;
 		}
 	}
+
 }
 
 

@@ -10,10 +10,10 @@ public class Simu {
 	    public final static float WIDTH= 0.8f;
 	    static boolean inversed_keys=false;
 	    static int nbTours=0;
-	    
 	    public static void main (String [] args){
 	    	
 	    	boolean move;
+	    	
 	    	
 	    	// La grille
 	        StdDraw.setXscale(5, X_MAX-5);
@@ -50,10 +50,9 @@ public class Simu {
 	            TimerTask task = new TimerTask(){
 	    			public void run(){
 	    				for (int i=0;i<nbJoueursCopie;i++)
-	    					v[i].score+=v[i].px;
+	    					v[i].score+=v[i].px-5;
 	    			}	
 	    		};
-	    		
 	    		Timer timer = new Timer();
 	    		timer.scheduleAtFixedRate(task, 0, 250);
 
@@ -97,6 +96,8 @@ public class Simu {
 	                			public void run(){
 	                				for (int i=0;i<nbJoueursCopie;i++){
 	                					v[i].invincible=false;
+	                					
+	                					
 	                			}
 	                			}	
 	                	    };
@@ -149,6 +150,7 @@ public class Simu {
 		    		Thread.currentThread().interrupt();
 		    	}
 		    	
+		    	StdDraw.clear();
 		    	StdDraw.picture(50, 50, "game_over.jpg", 100, 100);
 		    		
 		    	//Vainqueur
@@ -156,8 +158,10 @@ public class Simu {
 		    	
 		    	//Try again?
 		    	m.retourMenu();
+		    	StdDraw.clear();
+		    	StdDraw.setPenColor(Color.black);
 		    	
-	        }while(m.tryAgain);
+		    	 }while(m.tryAgain);
 
 	      }  
 	    
