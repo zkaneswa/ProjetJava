@@ -64,6 +64,8 @@ public class Simu {
 		            	collide[i]=0; 
 	            	
 	    			// Activation zone spéciale : 2% de chance
+	    			
+	    			
 	    			t.specialZone();
 	    			
 	    			//Si joueur en vie il se déplace
@@ -96,13 +98,11 @@ public class Simu {
 	                			public void run(){
 	                				for (int i=0;i<nbJoueursCopie;i++){
 	                					v[i].invincible=false;
-	                					
-	                					
-	                			}
+	                					}
 	                			}	
 	                	    };
-	                	        Timer timer2 = new Timer();
-	                	        timer2.schedule(task2, 1000);
+	                	    Timer timer2 = new Timer();
+	                	    timer2.schedule(task2, 1000);
 	            		}
 	            	
 	            	//Rebond entre vaisseaux
@@ -136,8 +136,6 @@ public class Simu {
 		    			if (v[i].exist == 1)
 		    				move = true;
 		    		}
-		    		
-		    		
 		    		draw(v, (int)(1000*delta),m.nbJoueurs);
 		    	}while (move);
 	
@@ -161,7 +159,7 @@ public class Simu {
 		    	StdDraw.clear();
 		    	StdDraw.setPenColor(Color.black);
 		    	
-		    	 }while(m.tryAgain);
+		     }while(m.tryAgain);
 
 	      }  
 	    

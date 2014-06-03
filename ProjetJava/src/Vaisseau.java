@@ -47,7 +47,6 @@ public class Vaisseau {
 				left=KeyEvent.VK_H;
 				right=KeyEvent.VK_K;
 			}
-			
 			if (inversed_keys){
 				// Inversion Up/Down
 				temp=down;
@@ -61,7 +60,7 @@ public class Vaisseau {
 			}
 			
 			// DŽplacement du vaisseau			
-		    if(StdDraw.isKeyPressed(down));
+		    if(StdDraw.isKeyPressed(down))
 		    	py -= MOVE-0.5;
 		    if(StdDraw.isKeyPressed(up))
 		    	py += MOVE+0.5;
@@ -81,17 +80,14 @@ public class Vaisseau {
 		
 		//Affiche images vaisseaux
 		public void draw(int player){
-
 			String pathShip="";
 			if (invincible)
 				pathShip="vaisseauclign.png";
 			else 
 				pathShip="vaisseau"+(player+1)+".png";
-			StdDraw.picture(px,py,pathShip,40,35);
-
+				StdDraw.picture(px,py,pathShip,40,35);
 		}
-		
-		
+		//Gerer les collisions entre vaisseau et tunnel
 		public static int[] collisionTunnel(Vaisseau[] v,int nbJoueur){
 			int[] collide = new int[nbJoueur];
 			for (int i=0; i<nbJoueur; i++){
@@ -107,6 +103,8 @@ public class Vaisseau {
         	return collide;
       	}
 		
+		
+		//Collision (rebond) entre les vaisseaux
 		public static void rebondVaisseau(Vaisseau[]v, int l, int m){
 			double dist = (v[l].px-v[m].px)* (v[l].px-v[m].px) +  (v[l].py-v[m].py)*(v[l].py-v[m].py);
         	if(dist <(v[m].rayon + v[l].rayon)*(v[m].rayon + v[l].rayon)){
@@ -138,7 +136,5 @@ public class Vaisseau {
 			}
 			StdDraw.show(1000);
 		}
-		
-		
-		
+	
 }

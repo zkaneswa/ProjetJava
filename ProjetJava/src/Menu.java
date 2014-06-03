@@ -12,13 +12,10 @@ public class Menu {
 		boolean choice=false;
 		int posArray = 60;
     
-
-	
 	    while(choice!=true){
 			//Logo
 	    	
 			StdDraw.picture(50, 85, "269526.gif",60,35);
-			
 			StdDraw.text(50, 70, "Choisissez le nombre de joueurs avec les fleches Haut ou Bas.");
 			StdDraw.text(50, 60, "1 joueur");
 			StdDraw.text(50, 50, "2 joueurs");

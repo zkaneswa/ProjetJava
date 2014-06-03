@@ -7,6 +7,7 @@ public class Tunnel {
 	static double tunnelHaut[]= new double [Simu.X_MAX];
 	static double tunnelBas[]= new double [Simu.X_MAX];
 	
+	
 	Tunnel(){
 		//Initialisation	
 		for (int i = 0; i < Simu.X_MAX; i++) {
@@ -31,7 +32,6 @@ public class Tunnel {
 	}
 
 	public void afficheTunnel() {
-
 		double[] x = new double[ Simu.X_MAX + 2]; // remplissage du decors
 		
 		for (int j = 0; j < Simu.X_MAX + 2; j++) {
@@ -53,8 +53,8 @@ public class Tunnel {
 			StdDraw.setPenColor(StdDraw.BLUE);
 		else
 			StdDraw.setPenColor(StdDraw.RED);
-		StdDraw.filledPolygon(x, tunnelHautPolygon);
-		StdDraw.filledPolygon(x, tunnelBasPolygon);
+			StdDraw.filledPolygon(x, tunnelHautPolygon);
+			StdDraw.filledPolygon(x, tunnelBasPolygon);
 	}
 
 	public void decale() {
@@ -72,8 +72,6 @@ public class Tunnel {
 	
 
 	//Vitesse de defilement tunnel
-	
-	
 	public void defilementTunnel(){
 		int rdm=StdRandom.uniform(100);
     	if (rdm > 60){
@@ -89,7 +87,6 @@ public class Tunnel {
 		if (rdm > 98 && Simu.nbTours == 0){
 			Simu.inversed_keys=true;
 		}
-		
 		if (Simu.inversed_keys){
 			if (Simu.nbTours > 100){
 				Simu.inversed_keys=false;
@@ -98,7 +95,6 @@ public class Tunnel {
 			Simu.nbTours++;
 		}
 	}
-
 }
 
 
