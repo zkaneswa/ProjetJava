@@ -48,7 +48,10 @@ public class Tunnel {
 				tunnelBasPolygon[j] = tunnelBas[j - 1];
 			}
 		}
-		StdDraw.setPenColor(StdDraw.RED);
+		if (Simu.inversed_keys)
+			StdDraw.setPenColor(StdDraw.BLUE);
+		else
+			StdDraw.setPenColor(StdDraw.RED);
 		StdDraw.filledPolygon(x, tunnelHautPolygon);
 		StdDraw.filledPolygon(x, tunnelBasPolygon);
 	}
@@ -74,6 +77,21 @@ public class Tunnel {
     		decale();
     		decale();
     	}
+	}
+	
+	public void specialZone(){
+		int rdm=StdRandom.uniform(100);
+		if (rdm > 98 && Simu.nbTours == 0){
+			Simu.inversed_keys=true;
+		}
+		
+		if (Simu.inversed_keys){
+			if (Simu.nbTours > 100){
+				Simu.inversed_keys=false;
+				Simu.nbTours=-1;
+			}
+			Simu.nbTours++;
+		}
 	}
 }
 

@@ -8,12 +8,12 @@ public class Simu {
 		public final static int X_MAX= 100;
 	    public final static int Y_MAX= 100;
 	    public final static float WIDTH= 0.8f;
+	    static boolean inversed_keys=false;
+	    static int nbTours=0;
 	    
 	    public static void main (String [] args){
 	    	
-	    	boolean move; 
-	    	int nbTours=0;
-	    	boolean inversed_keys=false;
+	    	boolean move;
 	    	
 	    	// La grille
 	        StdDraw.setXscale(5, X_MAX-5);
@@ -56,11 +56,6 @@ public class Simu {
 	    		
 	    		Timer timer = new Timer();
 	    		timer.scheduleAtFixedRate(task, 0, 250);
-	    		
-
-	    	
-	    	
-	    	
 
 	    		//On joue tant qu'il reste un joueur vivant
 		    	do{
@@ -70,19 +65,7 @@ public class Simu {
 		            	collide[i]=0; 
 	            	
 	    			// Activation zone spéciale : 2% de chance
-	    			int rdm=StdRandom.uniform(100);
-	    			if (rdm > 98 && nbTours == 0){
-	    				inversed_keys=true;
-	    			}
-	    			
-	    			if (inversed_keys){
-	    				if (nbTours > 50){
-	    					inversed_keys=false;
-	    					nbTours=-1;
-	    				}
-	    				nbTours++;
-	    			}
-	    			
+	    			t.specialZone();
 	    			
 	    			//Si joueur en vie il se déplace
 		            for (int i=0;i<m.nbJoueurs;i++){
@@ -178,10 +161,6 @@ public class Simu {
 
 	      }  
 	    
-	    
-	    
-	    
-
 	    public static void draw(Vaisseau[] v, int time, int nbJoueur){
 	    	for (int i=0;i<nbJoueur;i++){
 	    		if (v[i].energie == 0){					//Verif si joueur vivant
