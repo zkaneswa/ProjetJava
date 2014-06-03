@@ -8,10 +8,12 @@ public class Simu {
 		public final static int X_MAX= 100;
 	    public final static int Y_MAX= 100;
 	    public final static float WIDTH= 0.8f;
-	    
+	    static boolean inversed_keys=false;
 	    public static void main (String [] args){
 	    	
 	    	boolean move; 
+	    	int nbTours=0;
+	    	
 	    	
 	    	// La grille
 	        StdDraw.setXscale(5, X_MAX-5);
@@ -28,9 +30,8 @@ public class Simu {
 	
 		    	// Les vaisseaux
 		    	final Vaisseau[] v = new Vaisseau[m.nbJoueurs];
-		    	for (int i=0;i<m.nbJoueurs;i++){
+		    	for (int i=0;i<m.nbJoueurs;i++)
 		    		v[i] = new Vaisseau(X_MAX/2,Y_MAX/(2+i),WIDTH*4.5,0.7,i);
-		    	}
 		    	
 		    	// Tunnel
 		    	Tunnel t = new Tunnel();
@@ -49,7 +50,7 @@ public class Simu {
 	            TimerTask task = new TimerTask(){
 	    			public void run(){
 	    				for (int i=0;i<nbJoueursCopie;i++)
-	    					v[i].score+=v[i].px;
+	    					v[i].score+=v[i].px-5;
 	    			}	
 	    		};
 	    		
@@ -68,10 +69,25 @@ public class Simu {
 	    			for(int i=0;i<m.nbJoueurs;i++)
 		            	collide[i]=0; 
 	            	
+	    			// Activation zone spéciale : 2% de chance
+	    			int rdm=StdRandom.uniform(100);
+	    			if (rdm > 98 && nbTours == 0){
+	    				inversed_keys=true;
+	    			}
+	    			
+	    			if (inversed_keys){
+	    				if (nbTours > 50){
+	    					inversed_keys=false;
+	    					nbTours=-1;
+	    				}
+	    				nbTours++;
+	    			}
+	    			
+	    			
 	    			//Si joueur en vie il se déplace
 		            for (int i=0;i<m.nbJoueurs;i++){
 		            	if (v[i].exist==1)
-		            		v[i].move(ax,ay,delta,X_MAX, Y_MAX,i);
+		            		v[i].move(ax,ay,delta,X_MAX, Y_MAX,i, inversed_keys);
 		            }
 	            	
 		            //Fond
@@ -79,14 +95,14 @@ public class Simu {
 		            
 	            	//Affichage tunnel
 	            	t.getTunnel();
-	            
 	            	
 	            	//Vitesse de defilement tunnel
 	            	t.defilementTunnel();
-	           
 	            	
-	            	//Collisions avec tunnel
+	            	// Collisions avec le tunnel stockees dans le tableau collide
 	            	collide=Vaisseau.collisionTunnel (v,m.nbJoueurs);
+	            	
+	            	// Gestion des collisions avec le tunnel (energie / invincibilité) et entre joueurs (rebonds)
 	            	for (int i=0; i<m.nbJoueurs; i++)
 	            		if (collide[i] ==1 && v[i].energie > 0 && v[i].invincible == false){
 	            			v[i].energie--;
@@ -152,6 +168,7 @@ public class Simu {
 		    		Thread.currentThread().interrupt();
 		    	}
 		    	
+		    	StdDraw.clear();
 		    	StdDraw.picture(50, 50, "game_over.jpg", 100, 100);
 		    		
 		    	//Vainqueur
@@ -159,8 +176,10 @@ public class Simu {
 		    	
 		    	//Try again?
 		    	m.retourMenu();
+		    	StdDraw.clear();
+		    	StdDraw.setPenColor(Color.black);
 		    	
-	        }while(m.tryAgain);
+		    	 }while(m.tryAgain);
 
 	      }  
 	    

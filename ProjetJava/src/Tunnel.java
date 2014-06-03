@@ -2,11 +2,10 @@
 public class Tunnel {
 
 
-	static double tunnelHautPolygon[] = new double[ Simu.X_MAX + 2];
-	static double tunnelBasPolygon[] = new double[ Simu.X_MAX + 2];
+	static double[] tunnelHautPolygon = new double[ Simu.X_MAX + 2];
+	static double[] tunnelBasPolygon = new double[ Simu.X_MAX + 2];
 	static double tunnelHaut[]= new double [Simu.X_MAX];
 	static double tunnelBas[]= new double [Simu.X_MAX];
-	static double[] x = new double[ Simu.X_MAX +2]; // remplissage
 	
 	Tunnel(){
 		//Initialisation	
@@ -32,9 +31,10 @@ public class Tunnel {
 	}
 
 	public void afficheTunnel() {
-	//	double[] x = new double[ Simu.X_MAX +2]; // remplissage du decors
+
+		double[] x = new double[ Simu.X_MAX + 2]; // remplissage du decors
 		
-		for (int j = 0; j < Simu.X_MAX+2 ; j++) {
+		for (int j = 0; j < Simu.X_MAX + 2; j++) {
 			if (j == 0) {
 				x[j] = 0;
 				tunnelHautPolygon[j] = Simu.Y_MAX - 15;
@@ -44,9 +44,9 @@ public class Tunnel {
 				tunnelHautPolygon[j] = Simu.Y_MAX - 15;
 				tunnelBasPolygon[j] = 0;
 			} else {
-				x[j] = j-1 ;
-				tunnelHautPolygon[j] = tunnelHaut[j-1];
-				tunnelBasPolygon[j] = tunnelBas[j-1];
+				x[j] = j - 1;
+				tunnelHautPolygon[j] = tunnelHaut[j - 1];
+				tunnelBasPolygon[j] = tunnelBas[j - 1];
 			}
 		}
 		StdDraw.setPenColor(StdDraw.RED);
@@ -61,13 +61,13 @@ public class Tunnel {
 		}
 	}
 	
-	
-	public  void getTunnel(){
+	public void getTunnel(){
 		tunnel();
 		afficheTunnel();
 		decale();
 	}
 	
+
 	//Vitesse de defilement tunnel
 	
 	
@@ -81,6 +81,7 @@ public class Tunnel {
 		decale();
 	}
 	}
+
 
 }
 
