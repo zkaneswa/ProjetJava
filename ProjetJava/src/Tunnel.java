@@ -72,8 +72,6 @@ public class Tunnel {
 	
 
 	//Vitesse de defilement tunnel
-	
-	
 	public void defilementTunnel(){
 		int rdm=StdRandom.uniform(100);
     	if (rdm > 60){
@@ -86,9 +84,8 @@ public class Tunnel {
 	
 	public void specialZone(){
 		int rdm=StdRandom.uniform(100);
-		if (rdm > 98 && Simu.nbTours == 0){
+		if (rdm < 2 && Simu.nbTours == 0)
 			Simu.inversed_keys=true;
-		}
 		
 		if (Simu.inversed_keys){
 			if (Simu.nbTours > 100){

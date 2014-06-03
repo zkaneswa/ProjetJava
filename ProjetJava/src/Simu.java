@@ -10,10 +10,10 @@ public class Simu {
 	    public final static float WIDTH= 0.8f;
 	    static boolean inversed_keys=false;
 	    static int nbTours=0;
+	    
 	    public static void main (String [] args){
 	    	
 	    	boolean move;
-	    	
 	    	
 	    	// La grille
 	        StdDraw.setXscale(5, X_MAX-5);
@@ -23,6 +23,7 @@ public class Simu {
 	        Menu m=new Menu();
 
 	        do{
+	        	
 		        m.principal();
 		        
 		        //Collision
@@ -31,7 +32,7 @@ public class Simu {
 		    	// Les vaisseaux
 		    	final Vaisseau[] v = new Vaisseau[m.nbJoueurs];
 		    	for (int i=0;i<m.nbJoueurs;i++)
-		    		v[i] = new Vaisseau(X_MAX/2,Y_MAX/(2+i),WIDTH*4.5,0.7,i);
+		    		v[i] = new Vaisseau(X_MAX/2,Y_MAX/(2+i),WIDTH*4.5,2,i);
 		    	
 		    	// Tunnel
 		    	Tunnel t = new Tunnel();
@@ -64,7 +65,9 @@ public class Simu {
 		            	collide[i]=0; 
 	            	
 	    			// Activation zone spéciale : 2% de chance
-	    			t.specialZone();
+	    			for (int i=0;i<m.nbJoueurs;i++)
+	    				if (v[i].score>=3000)
+	    					t.specialZone();
 	    			
 	    			//Si joueur en vie il se déplace
 		            for (int i=0;i<m.nbJoueurs;i++){
@@ -81,54 +84,20 @@ public class Simu {
 	            	//Vitesse de defilement tunnel
 	            	t.defilementTunnel();
 	            	
-	            	// Collisions avec le tunnel stockees dans le tableau collide
+	            	// On remplit le tableau collide
 	            	collide=Vaisseau.collisionTunnel (v,m.nbJoueurs);
 	            	
 	            	// Gestion des collisions avec le tunnel (energie / invincibilité) et entre joueurs (rebonds)
-	            	for (int i=0; i<m.nbJoueurs; i++)
-	            		if (collide[i] ==1 && v[i].energie > 0 && v[i].invincible == false){
-	            			v[i].energie--;
-	            			v[i].invincible=true;
-	            			
-	       			
-	            			//Invincibilite d'une sec apres collision
-	                		TimerTask task2 = new TimerTask(){
-	                			public void run(){
-	                				for (int i=0;i<nbJoueursCopie;i++){
-	                					v[i].invincible=false;
-	                					
-	                					
-	                			}
-	                			}	
-	                	    };
-	                	        Timer timer2 = new Timer();
-	                	        timer2.schedule(task2, 1000);
-	            		}
+	            	Vaisseau.energieInvincible(v,m.nbJoueurs,nbJoueursCopie,collide);
 	            	
 	            	//Rebond entre vaisseaux
-	            	if (m.nbJoueurs>=2)
-	            		Vaisseau.rebondVaisseau(v,1,0);
-	            	if (m.nbJoueurs>=3){
-		            	Vaisseau.rebondVaisseau(v,2,0);
-		            	Vaisseau.rebondVaisseau(v,2,1);
-	            	}
+	            	Vaisseau.getRebondVaisseau(v,m.nbJoueurs);
 	
 		            // Score + energie en noir
 		            StdDraw.setPenColor(Color.black);
 		            
 	            	//Energie
-		            String [] e = new String [m.nbJoueurs];
-		            for (int i=0;i<m.nbJoueurs;i++){
-		            	e [i] = "Energie joueur "+ (i+1) +" : " +String.valueOf(v[i].energie);
-		            	StdDraw.text(30,95-i*5,e[i]);
-		            	}
-	            	
-				    //Score
-		            String [] s = new String [m.nbJoueurs];
-		            for (int i=0;i<m.nbJoueurs;i++){
-		            	s [i] = "Score joueur "+ (i+1) +" : " +String.valueOf(v[i].score);
-		            	StdDraw.text(80,95-i*5,s[i]);
-		            }
+		            Vaisseau.getEnergieScore(v,m.nbJoueurs);
 		            
 		            //Verif si au moins un joueur est en vie
 		            move = false ;
@@ -161,18 +130,21 @@ public class Simu {
 		    	StdDraw.clear();
 		    	StdDraw.setPenColor(Color.black);
 		    	
-		    	 }while(m.tryAgain);
+		    	//Reinitialisation zone speciale
+		    	inversed_keys=false;
+		    	nbTours=0;
+		    	
+		    	}while(m.tryAgain);
 
-	      }  
+	    }  
 	    
 	    public static void draw(Vaisseau[] v, int time, int nbJoueur){
 	    	for (int i=0;i<nbJoueur;i++){
 	    		if (v[i].energie == 0){					//Verif si joueur vivant
 	    			v[i].exist=0;
 	    			v[i].px=0;							//Score arrete de s'incrementer
-	    		}else{
+	    		}else
 	    			v[i].draw(i);
-	    		}
 	    	}
         	
 	        // display and pause
