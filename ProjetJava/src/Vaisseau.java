@@ -1,13 +1,13 @@
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Vaisseau {
 		//Attributs de Vaisseau
 		double px;
 		double py;
-		double vx;
-		double vy;
 		double rayon;
 		double rebond;
 		int energie=10;
@@ -21,7 +21,7 @@ public class Vaisseau {
 			px = x;
 			py = y;
 			rayon = r;
-			rebond = reb;//Pour plus tard
+			rebond = reb;
 		}
 					
 		public void move (double ax, double ay, double delta, int xmax, int ymax, int player, boolean inversed_keys){	
@@ -86,6 +86,7 @@ public class Vaisseau {
 			else 
 				pathShip="vaisseau"+(player+1)+".png";
 				StdDraw.picture(px,py,pathShip,40,35);
+
 		}
 		//Gerer les collisions entre vaisseau et tunnel
 		public static int[] collisionTunnel(Vaisseau[] v,int nbJoueur){
@@ -109,11 +110,11 @@ public class Vaisseau {
 			double dist = (v[l].px-v[m].px)* (v[l].px-v[m].px) +  (v[l].py-v[m].py)*(v[l].py-v[m].py);
         	if(dist <(v[m].rayon + v[l].rayon)*(v[m].rayon + v[l].rayon)){
         		if (v[m].py>v[l].py || v[m].px>v[l].px){
-        			v[m].py+=2;
-        			v[l].py-=2;
+        			v[m].py+=v[m].rebond;
+        			v[l].py-=v[l].rebond;
         		}else{
-        			v[m].py-=2;
-        			v[l].py+=2;
+        			v[m].py-=v[m].rebond;
+        			v[l].py+=v[l].rebond;
         		}
         	}
 		}
@@ -136,5 +137,51 @@ public class Vaisseau {
 			}
 			StdDraw.show(1000);
 		}
-	
+
+		public static void energieInvincible(final Vaisseau[] v, int nbJoueur, final int nbJoueursCopie, int[] c){
+			for (int i=0; i<nbJoueur; i++){
+        		if (c[i] ==1 && v[i].energie > 0 && v[i].invincible == false){
+        			v[i].energie--;
+        			v[i].invincible=true;
+        			
+   			
+        			//Invincibilite d'une sec apres collision
+            		TimerTask task2 = new TimerTask(){
+            			public void run(){
+            				for (int i=0;i<nbJoueursCopie;i++)
+            					v[i].invincible=false;
+            			}	
+            	    };
+        	        Timer timer2 = new Timer();
+        	        timer2.schedule(task2, 1000);
+        		}
+        	}
+		}
+		
+		public static void getRebondVaisseau(Vaisseau[] v, int nbJoueur){
+			if (nbJoueur>=2)
+        		Vaisseau.rebondVaisseau(v,1,0);
+        	if (nbJoueur>=3){
+            	Vaisseau.rebondVaisseau(v,2,0);
+            	Vaisseau.rebondVaisseau(v,2,1);
+        	}
+		}
+		
+		public static void getEnergieScore(Vaisseau[] v, int nbJoueur){
+			//Energie
+			String [] e = new String [nbJoueur];
+            for (int i=0;i<nbJoueur;i++){
+            	e [i] = "Energie joueur "+ (i+1) +" : " +String.valueOf(v[i].energie);
+            	StdDraw.text(30,95-i*5,e[i]);
+            }
+        	
+		    //Score
+            String [] s = new String [nbJoueur];
+            for (int i=0;i<nbJoueur;i++){
+            	s [i] = "Score joueur "+ (i+1) +" : " +String.valueOf(v[i].score);
+            	StdDraw.text(80,95-i*5,s[i]);
+            }
+		}
+		
+
 }

@@ -20,11 +20,14 @@ public class Menu {
 			StdDraw.text(50, 60, "1 joueur");
 			StdDraw.text(50, 50, "2 joueurs");
 			StdDraw.text(50, 40, "3 joueurs");
-			StdDraw.text(50, 30, "Validez avec la touche Entree pour jouer.");
+			StdDraw.text(50, 30,"Instructions");
+			StdDraw.text(50, 20, "Validez avec la touche Entree pour jouer.");
 			
 			//Fleche de choix
 			StdDraw.picture(30, posArray, "Array.jpg.png",10,10);
 			StdDraw.show(10);
+			
+			boolean instruction=false;
 			
 			//Recup input
 			int input=nextArrow();
@@ -40,14 +43,29 @@ public class Menu {
 					nbJoueurs=2;
 				if (posArray==40)
 					nbJoueurs=3;
+				if(posArray==30){
+					//Instruction
+					StdDraw.clear();
+					
+					while(!instruction){
+						
+					getInstruction();
+					retourMenu();
+					StdDraw.clear();
+			    	StdDraw.setPenColor(Color.black);
+			    	instruction=true;
+			    	principal();
+					}
+					
+					}
 			}
 		
 			//Limites fleche
 			if (posArray>60)
 				posArray=60;
 			
-			if (posArray<40)
-				posArray=40;
+			if (posArray<30)
+				posArray=30;
 			
 			StdDraw.clear(StdDraw.WHITE);
 	    }	
@@ -86,5 +104,26 @@ public class Menu {
 				}
 			}
 			return res;
+	 }
+	 
+	 public static void getInstruction(){
+		 
+		 StdDraw.picture(50, 85, "269526.gif",60,35);
+			StdDraw.text(50,70,"Instructions");
+			
+			StdDraw.text(50, 60, "Commande du joueur 1: flèche haut, gauche, bas, droite.");
+			StdDraw.text(50, 50, "Commande du joueur 2: touche Z, Q, S, D.");	
+			StdDraw.text(50, 40, "Commande du joueur 3: flèche U, H, J, K.");
+			StdDraw.setPenColor(Color.blue );	
+			StdDraw.text(50, 30, "Zone bleue: commande inversée.");
+			
+			for(int i=0; i<3; ++i){
+				
+			StdDraw.picture(10, 60-(10*i), "vaisseau"+(i+1)+".png", 40,30);
+			
+			}
+			
+			
+		 
 	 }
 }
